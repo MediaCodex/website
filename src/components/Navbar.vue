@@ -9,8 +9,8 @@
         <mdb-input
           type="text"
           class="text-white"
-          placeholder="Search..."
-          aria-label="Search..."
+          :placeholder="$t('navbar.search')"
+          :aria-label="$t('navbar.search')"
           label
           nav-input
           disabled
