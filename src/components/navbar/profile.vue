@@ -1,6 +1,6 @@
 <template>
   <mdb-dropdown tag="li" class="nav-item">
-    <mdb-dropdown-toggle tag="a" nav-link slot="toggle" waves-fixed>
+    <mdb-dropdown-toggle slot="toggle" tag="a" nav-link waves-fixed>
       <mdbIcon icon="user" />
     </mdb-dropdown-toggle>
     <mdb-dropdown-menu>
