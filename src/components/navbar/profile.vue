@@ -41,7 +41,8 @@ import {
   mdbDropdown,
   mdbDropdownMenu,
   mdbDropdownToggle,
-  mdbDropdownItem
+  mdbDropdownItem,
+  mdbAvatar
 } from 'mdbvue'
 import Auth from '../auth'
 export default {
@@ -51,11 +52,12 @@ export default {
     mdbDropdown,
     mdbDropdownMenu,
     mdbDropdownToggle,
-    mdbDropdownItem
+    mdbDropdownItem,
+    mdbAvatar
   },
   data() {
     return {
-      authVisible: true
+      authVisible: false
     }
   },
   methods: {

@@ -15,8 +15,8 @@ export const mutations = {
     state.authenticated = true
     state.challenge = false
     state.challengeAttributes = null
-    delete state.user.challengeName
-    delete state.user.challengeParam
+    state.user.challengeName = undefined
+    state.user.challengeParam = undefined
   },
   challengeMfa(state, type) {
     state.authenticated = false
@@ -73,7 +73,6 @@ export const actions = {
   async passwordChallenge({ commit, state }, { password, email, phone }) {
     const user = await Auth.completeNewPassword(
       state.user, // object from login
-      state.challengeAttributes, // MFA type, e.g. SMS or TOTP
       password, // new password
       { email, phone } // optional required attributes
     )
@@ -85,4 +84,12 @@ export const actions = {
   }
 }
 
-export const getters = {}
+export const getters = {
+  challenge: (state) => {
+    if (state.authenticated || !state.challenge) return null
+    return {
+      type: state.challenge,
+      params: state.challengeAttributes
+    }
+  }
+}

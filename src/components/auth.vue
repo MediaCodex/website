@@ -23,7 +23,7 @@
           :label="$t('auth.usernameOrEmail')"
           icon="envelope"
           type="email"
-          class="mb-5 error"
+          class="mb-5"
           required
         />
         <mdb-input
@@ -52,8 +52,43 @@
         </mdb-btn>
       </mdb-modal-body>
 
+      <!-- Change password -->
+      <mdb-modal-body v-if="mode === 'changePassword'" class="mx-3 grey-text">
+        <mdb-input
+          v-model="formData.password"
+          :label="$t('auth.password')"
+          icon="password"
+          type="password"
+          class="mb-5"
+          required
+        />
+        <mdb-input
+          v-model="formData.passwordConfirm"
+          :label="$t('auth.passwordConfirm')"
+          icon="lock"
+          type="password"
+          required
+        />
+        <mdb-btn v-if="loading" color="primary" class="float-right" disabled>
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span class="sr-only">Loading...</span>
+        </mdb-btn>
+        <mdb-btn
+          v-else
+          color="primary"
+          class="float-right"
+          @click.native="submitChallenge"
+        >
+          {{ $t('submit') }}
+        </mdb-btn>
+      </mdb-modal-body>
+
       <!-- footer -->
-      <mdb-modal-footer v-if="!loading" center>
+      <mdb-modal-footer center>
         Social buttons here
       </mdb-modal-footer>
     </mdb-modal>
@@ -72,7 +107,6 @@ import {
   mdbModalTitle,
   mdbAlert
 } from 'mdbvue'
-import Joi from '@hapi/joi'
 export default {
   name: 'Auth',
   components: {
@@ -91,31 +125,19 @@ export default {
     return {
       mode: 'login',
       loading: false,
-      loginSchema: Joi.object({
-        email: Joi.string().email({ tlds: { allow: false } }),
-        password: Joi.string().min(5)
-      }),
-      formData: {
-        email: '',
-        password: ''
-      },
+      formData: {},
       errors: []
     }
   },
+  watch: {
+    // mode() {
+    //   this.formData = { email: this.formData.email }
+    // }
+  },
   methods: {
     close() {
+      console.log('Close event')
       this.$emit('close')
-    },
-    async validate(schema) {
-      try {
-        await schema.validateAsync(this.formData, {
-          abortEarly: false
-        })
-      } catch (e) {
-        this.errors = e.details
-        return
-      }
-      this.errors = []
     },
     async login() {
       this.loading = true
@@ -127,9 +149,40 @@ export default {
         await this.$store.dispatch('auth/login', form)
       } catch (error) {
         this.errors = [error]
-      } finally {
-        this.loading = false
       }
+
+      // cleanup
+      this.loading = false
+      if (!this.$store.getters['auth/challenge']) close()
+      else this.challenge()
+    },
+    challenge() {
+      const challenge = this.$store.getters['auth/challenge']
+      if (challenge.type === 'password') this.mode = 'changePassword'
+    },
+    async submitChallenge() {
+      this.loading = true
+      const challenge = await this.$store.getters['auth/challenge']
+
+      // password change
+      if (challenge.type === 'password') {
+        if (this.formData.password !== this.formData.passwordConfirm) {
+          this.errors = ['Passwords do not match']
+          return
+        }
+        try {
+          await this.$store.dispatch('auth/passwordChallenge', {
+            password: this.formData.password
+          })
+        } catch (error) {
+          this.errors = [error]
+        }
+      }
+
+      // cleanup
+      this.loading = false
+      if (!this.$store.getters['auth/challenge']) close()
+      else this.challenge()
     }
   }
 }
