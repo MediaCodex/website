@@ -1,6 +1,7 @@
 export default {
   mode: 'spa',
   srcDir: 'src/',
+  dotenv: { path: '.' },
 
   /**
    * Headers of the page
@@ -32,7 +33,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~plugins/amplify-auth' }],
 
   /**
    * Nuxt.js dev-modules
@@ -82,5 +83,17 @@ export default {
   build: {
     // You can extend webpack config here
     extend(config, ctx) {}
+  },
+
+  /**
+   * Environment variable mapping
+   *
+   * @see{@link https://nuxtjs.org/api/configuration-env}
+   */
+  env: {
+    DOMAIN_NAME: process.env.DOMAIN_NAME,
+    AMPLIFY_AUTH_REGION: process.env.AMPLIFY_AUTH_REGION,
+    AMPLIFY_AUTH_POOL_ID: process.env.AMPLIFY_AUTH_POOL_ID,
+    AMPLIFY_AUTH_CLIENT_ID: process.env.AMPLIFY_AUTH_CLIENT_ID
   }
 }

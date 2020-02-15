@@ -21,6 +21,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@aws-amplify/auth": "^2.1.5",
+    "@hapi/joi": "^17.1.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
