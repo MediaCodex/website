@@ -136,7 +136,6 @@ export default {
   },
   methods: {
     close() {
-      console.log('Close event')
       this.$emit('close')
     },
     async login() {
