@@ -12,6 +12,7 @@ import Navbar from '@/components/navbar'
 export default {
   components: {
     Navbar
-  }
+  },
+  middleware: ['auth']
 }
 </script>

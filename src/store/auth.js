@@ -11,8 +11,8 @@ export const mutations = {
   updateUser(state, user) {
     state.user = user
   },
-  authenticated(state) {
-    state.authenticated = true
+  authenticated(state, success = true) {
+    state.authenticated = success
     state.challenge = false
     state.challengeAttributes = null
     state.user.challengeName = undefined
@@ -81,6 +81,16 @@ export const actions = {
   },
   async mfaSetupChallenge({ commit, state }, { password, email, phone }) {
     // TODO
+  },
+  async fetchUser({ commit }) {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      commit('updateUser', user)
+      commit('authenticated')
+    } catch (error) {
+      commit('user', null)
+      commit('authenticated', false)
+    }
   }
 }
 
