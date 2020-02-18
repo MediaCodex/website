@@ -33,7 +33,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/amplify-auth' }],
+  plugins: [{ src: '~plugins/amplify-auth', mode: 'client' }],
 
   /**
    * Nuxt.js dev-modules

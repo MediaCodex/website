@@ -130,9 +130,9 @@ export default {
     }
   },
   watch: {
-    // mode() {
-    //   this.formData = { email: this.formData.email }
-    // }
+    mode() {
+      this.formData = { email: this.formData.email }
+    }
   },
   methods: {
     close() {
