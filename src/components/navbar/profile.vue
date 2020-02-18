@@ -7,12 +7,11 @@
     end
   >
     <mdb-dropdown-toggle slot="toggle" tag="a" nav-link waves-fixed>
-      <mdb-avatar class="mx-auto white">
-        <img
-          src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
-          class="rounded-circle img-fluid"
-        />
-      </mdb-avatar>
+      <img
+        src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
+        class="rounded-circle z-depth-0"
+        height="35"
+      />
     </mdb-dropdown-toggle>
     <mdb-dropdown-menu>
       <mdb-dropdown-item>
@@ -41,8 +40,7 @@ import {
   mdbDropdown,
   mdbDropdownMenu,
   mdbDropdownToggle,
-  mdbDropdownItem,
-  mdbAvatar
+  mdbDropdownItem
 } from 'mdbvue'
 import Auth from '../auth'
 export default {
@@ -52,8 +50,7 @@ export default {
     mdbDropdown,
     mdbDropdownMenu,
     mdbDropdownToggle,
-    mdbDropdownItem,
-    mdbAvatar
+    mdbDropdownItem
   },
   data() {
     return {
