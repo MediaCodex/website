@@ -7,55 +7,52 @@
         </mdb-modal-title>
       </mdb-modal-header>
 
-      <!-- errors -->
-      <mdb-alert v-if="!loading && errors.length" color="danger">
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">
-            {{ error.message }}
-          </li>
-        </ul>
-      </mdb-alert>
-
       <!-- Login -->
       <mdb-modal-body v-if="mode === 'login'" class="mx-3 grey-text">
         <mdb-input
           v-model="formData.email"
+          name="username"
+          autocomplete="username"
           :label="$t('auth.usernameOrEmail')"
           icon="envelope"
           type="email"
-          class="mb-5"
+          class="mb-3"
           required
         />
         <mdb-input
           v-model="formData.password"
+          name="password"
+          autocomplete="password"
           :label="$t('auth.password')"
           icon="lock"
           type="password"
+          class="mb-3"
           required
         />
-        <a>No account? Create One</a>
-        <mdb-btn v-if="loading" color="primary" class="float-right" disabled>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          <span class="sr-only">Loading...</span>
-        </mdb-btn>
-        <mdb-btn
-          v-else
-          color="primary"
-          class="float-right"
-          @click.native="login"
-        >
-          {{ $t('auth.login') }}
-        </mdb-btn>
+        <div class="text-center mb-3">
+          <mdb-btn
+            color="primary"
+            :disabled="loading"
+            class="btn-block z-depth-1a"
+            @click.native="login"
+          >
+            <span
+              v-if="loading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span v-else>{{ $t('auth.login') }}</span>
+          </mdb-btn>
+        </div>
       </mdb-modal-body>
 
       <!-- Change password -->
       <mdb-modal-body v-if="mode === 'changePassword'" class="mx-3 grey-text">
         <mdb-input
           v-model="formData.password"
+          name="new-password"
+          autocomplete="new-password"
           :label="$t('auth.password')"
           icon="password"
           type="password"
@@ -64,33 +61,100 @@
         />
         <mdb-input
           v-model="formData.passwordConfirm"
+          name="confirm-password"
+          autocomplete="confirm-password"
           :label="$t('auth.passwordConfirm')"
           icon="lock"
           type="password"
           required
         />
-        <mdb-btn v-if="loading" color="primary" class="float-right" disabled>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          <span class="sr-only">Loading...</span>
-        </mdb-btn>
-        <mdb-btn
-          v-else
-          color="primary"
-          class="float-right"
-          @click.native="submitChallenge"
+        <div class="text-center mb-3">
+          <mdb-btn
+            color="primary"
+            :disabled="loading"
+            class="btn-block z-depth-1a"
+            @click.native="submitChallenge"
+          >
+            <span
+              v-if="loading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span v-else>{{ $t('submit') }}</span>
+          </mdb-btn>
+        </div>
+      </mdb-modal-body>
+
+      <!-- Register -->
+      <mdb-modal-body v-if="mode === 'register'" class="mx-3 grey-text">
+        <mdb-input
+          v-model="formData.username"
+          name="username"
+          autocomplete="username"
+          :label="$t('auth.username')"
+          icon="user"
+          type="text"
+        />
+        <mdb-input
+          v-model="formData.email"
+          name="email"
+          autocomplete="email"
+          :label="$t('auth.email')"
+          icon="envelope"
+          type="email"
+        />
+        <mdb-input
+          v-model="formData.password"
+          name="new-password"
+          autocomplete="new-password"
+          :label="$t('auth.password')"
+          icon="lock"
+          type="password"
         >
-          {{ $t('submit') }}
-        </mdb-btn>
+        </mdb-input>
+        <mdb-input
+          v-model="formData.passwordConfirm"
+          name="confirm-password"
+          autocomplete="confirm-password"
+          :label="$t('auth.passwordConfirm')"
+          icon="lock"
+          type="password"
+        />
       </mdb-modal-body>
 
       <!-- footer -->
-      <mdb-modal-footer center>
-        Social buttons here
+      <mdb-modal-footer
+        center
+        class="font-small grey-text d-flex justify-content-end"
+      >
+        <span v-if="mode === 'login'">
+          {{ $t('auth.registerMessage') }}
+          <a href="#" @click="mode = 'register'">
+            {{ $t('auth.register') }}
+          </a>
+        </span>
+        <span v-else>
+          {{ $t('auth.loginMessage') }}
+          <a href="#" @click="mode = 'login'">
+            {{ $t('auth.login') }}
+          </a>
+        </span>
       </mdb-modal-footer>
+
+      <!-- errors -->
+      <mdb-alert
+        v-if="errors.length"
+        color="danger"
+        class="mb-0 rounded-0"
+        dissmiss
+      >
+        <ul style="list-style-type:disc;">
+          <li v-for="(error, index) in errors" :key="index">
+            {{ error.message }}
+          </li>
+        </ul>
+      </mdb-alert>
     </mdb-modal>
   </mdb-container>
 </template>
@@ -123,7 +187,7 @@ export default {
   props: { show: { type: Boolean, default: false } },
   data() {
     return {
-      mode: 'login',
+      mode: 'register',
       loading: false,
       formData: {},
       errors: []

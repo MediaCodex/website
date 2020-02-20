@@ -7,12 +7,14 @@ export default {
   },
   auth: {
     login: 'Login',
+    loginMessage: 'Already have an account?',
     register: 'Register',
+    registerMessage: 'No account?',
     resetPassword: 'Reset password',
     changePassword: 'Change password',
     usernameOrEmail: 'Your username/email',
     email: 'Your email',
-    emailConfirm: 'Confirm email',
+    username: 'Your username',
     password: 'Your password',
     passwordConfirm: 'Confirm Password'
   }
