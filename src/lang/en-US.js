@@ -11,11 +11,13 @@ export default {
     register: 'Register',
     registerMessage: 'No account?',
     resetPassword: 'Reset password',
-    changePassword: 'Change password',
+    passwordChallenge: 'Change password',
+    confirmChallenge: 'Confirm Email',
     usernameOrEmail: 'Your username/email',
     email: 'Your email',
     username: 'Your username',
     password: 'Your password',
-    passwordConfirm: 'Confirm Password'
+    passwordConfirm: 'Confirm Password',
+    confirmCode: 'Confirmation code'
   }
 }

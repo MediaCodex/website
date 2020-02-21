@@ -31,13 +31,20 @@ export const mutations = {
   challengeMfaSetup(state) {
     state.authenticated = false
     state.challenge = 'mfaSetup'
+  },
+  challengeConfirm(state) {
+    state.authenticated = false
+    state.challenge = 'confirm'
   }
 }
 
 export const actions = {
-  async login({ commit }, { email, password }) {
+  async signin({ commit }, { email, password }) {
     const user = await Auth.signIn(email, password)
     commit('updateUser', user)
+
+    // TODO: 'UserNotConfirmedException'
+    // TODO: 'PasswordResetRequiredException'
 
     // MFA Code challenge
     if (['SMS_MFA', 'SOFTWARE_TOKEN_MFA'].includes(user.challengeName)) {
@@ -60,6 +67,21 @@ export const actions = {
 
     commit('authenticated')
     return true
+  },
+  async signup({ commit }, { username, email, password }) {
+    await Auth.signUp({
+      username,
+      password,
+      attributes: { email }
+    })
+    commit('updateUser', { username, email })
+    commit('challengeConfirm')
+  },
+  async confirmChallenge({ commit, state }, code) {
+    await Auth.confirmSignUp(state.user.username, code)
+    const user = await Auth.currentAuthenticatedUser()
+    commit('updateUser', user)
+    commit('authenticated')
   },
   async mfaChallenge({ commit, state }, code) {
     const user = await Auth.confirmSignIn(

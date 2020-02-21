@@ -16,7 +16,6 @@
           :label="$t('auth.usernameOrEmail')"
           icon="envelope"
           type="email"
-          class="mb-3"
           required
         />
         <mdb-input
@@ -26,10 +25,9 @@
           :label="$t('auth.password')"
           icon="lock"
           type="password"
-          class="mb-3"
           required
         />
-        <div class="text-center mb-3">
+        <div class="text-center mt-3">
           <mdb-btn
             color="primary"
             :disabled="loading"
@@ -48,7 +46,10 @@
       </mdb-modal-body>
 
       <!-- Change password -->
-      <mdb-modal-body v-if="mode === 'changePassword'" class="mx-3 grey-text">
+      <mdb-modal-body
+        v-if="mode === 'passwordChallenge'"
+        class="mx-3 grey-text"
+      >
         <mdb-input
           v-model="formData.password"
           name="new-password"
@@ -68,7 +69,7 @@
           type="password"
           required
         />
-        <div class="text-center mb-3">
+        <div class="text-center mt-3">
           <mdb-btn
             color="primary"
             :disabled="loading"
@@ -121,13 +122,56 @@
           icon="lock"
           type="password"
         />
+        <div class="text-center  mt-3">
+          <mdb-btn
+            color="primary"
+            :disabled="loading"
+            class="btn-block z-depth-1a"
+            @click.native="register"
+          >
+            <span
+              v-if="loading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span v-else>{{ $t('auth.register') }}</span>
+          </mdb-btn>
+        </div>
+      </mdb-modal-body>
+
+      <!-- Confirmation code -->
+      <mdb-modal-body v-if="mode === 'confirmChallenge'" class="mx-3 grey-text">
+        <mdb-input
+          v-model="formData.code"
+          name="code"
+          autocomplete="code"
+          :label="$t('auth.confirmCode')"
+          icon="check-double"
+          type="text"
+          class="mb-5"
+          required
+        />
+        <div class="text-center mt-3">
+          <mdb-btn
+            color="primary"
+            :disabled="loading"
+            class="btn-block z-depth-1a"
+            @click.native="submitChallenge"
+          >
+            <span
+              v-if="loading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <span v-else>{{ $t('submit') }}</span>
+          </mdb-btn>
+        </div>
       </mdb-modal-body>
 
       <!-- footer -->
-      <mdb-modal-footer
-        center
-        class="font-small grey-text d-flex justify-content-end"
-      >
+      <mdb-modal-footer center class="font-small grey-text justify-content-end">
         <span v-if="mode === 'login'">
           {{ $t('auth.registerMessage') }}
           <a href="#" @click="mode = 'register'">
@@ -143,12 +187,7 @@
       </mdb-modal-footer>
 
       <!-- errors -->
-      <mdb-alert
-        v-if="errors.length"
-        color="danger"
-        class="mb-0 rounded-0"
-        dissmiss
-      >
+      <mdb-alert v-if="errors.length" color="danger" class="mb-0 rounded-0">
         <ul style="list-style-type:disc;">
           <li v-for="(error, index) in errors" :key="index">
             {{ error.message }}
@@ -209,7 +248,7 @@ export default {
         password: this.formData.password
       }
       try {
-        await this.$store.dispatch('auth/login', form)
+        await this.$store.dispatch('auth/signin', form)
       } catch (error) {
         this.errors = [error]
       }
@@ -221,7 +260,7 @@ export default {
     },
     challenge() {
       const challenge = this.$store.getters['auth/challenge']
-      if (challenge.type === 'password') this.mode = 'changePassword'
+      this.mode = `${challenge.type}Challenge`
     },
     async submitChallenge() {
       this.loading = true
@@ -242,7 +281,40 @@ export default {
         }
       }
 
+      if (challenge.type === 'confirm') {
+        try {
+          await this.$store.dispatch(
+            'auth/confirmChallenge',
+            this.formData.code
+          )
+        } catch (error) {
+          this.errors = [error]
+        }
+      }
+
       // cleanup
+      this.loading = false
+      if (!this.$store.getters['auth/challenge']) close()
+      else this.challenge()
+    },
+    async register() {
+      if (this.formData.password !== this.formData.passwordConfirm) {
+        this.errors = ['Passwords do not match']
+        return
+      }
+      this.loading = true
+      const form = {
+        username: this.formData.username,
+        email: this.formData.email,
+        password: this.formData.password
+      }
+
+      try {
+        await this.$store.dispatch('auth/signup', form)
+      } catch (error) {
+        this.errors = [error]
+      }
+
       this.loading = false
       if (!this.$store.getters['auth/challenge']) close()
       else this.challenge()
