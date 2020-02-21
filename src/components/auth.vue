@@ -2,9 +2,9 @@
   <mdb-container>
     <mdb-modal :show="show" cascade tabs @close="close">
       <mdb-modal-header color="light-blue darken-3 white-text">
-        <mdb-modal-title tag="h4" bold class="w-100">
+        <h4 class="title pl-5">
           {{ $t(`auth.${mode}`) }}
-        </mdb-modal-title>
+        </h4>
       </mdb-modal-header>
 
       <!-- Login -->
@@ -207,7 +207,6 @@ import {
   mdbModalBody,
   mdbModalFooter,
   mdbInput,
-  mdbModalTitle,
   mdbAlert
 } from 'mdbvue'
 export default {
@@ -220,7 +219,6 @@ export default {
     mdbModalBody,
     mdbModalFooter,
     mdbInput,
-    mdbModalTitle,
     mdbAlert
   },
   props: { show: { type: Boolean, default: false } },
