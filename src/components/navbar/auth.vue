@@ -1,177 +1,149 @@
 <template>
-  <mdb-container>
-    <mdb-modal :show="show" cascade tabs @close="close">
-      <mdb-modal-header color="light-blue darken-3 white-text">
-        <h4 class="title pl-5">
-          {{ $t(`auth.${mode}`) }}
-        </h4>
-      </mdb-modal-header>
+  <v-dialog v-model="show" width="500">
+    <template v-slot:activator="{ on }">
+      <v-btn v-on="on" text class="text-none underscore">
+        {{ $t('navbar.login') }}
+      </v-btn>
+    </template>
+    <v-card>
+      <v-card-title class="headline grey lighten-2" primary-title>
+        {{ $t(`auth.${mode}`) }}
+      </v-card-title>
 
       <!-- Login -->
-      <mdb-modal-body v-if="mode === 'login'" class="mx-3 grey-text">
-        <mdb-input
+      <v-card-text v-if="mode === 'login'">
+        <v-text-field
           v-model="formData.email"
           name="username"
           autocomplete="username"
           :label="$t('auth.usernameOrEmail')"
-          icon="envelope"
+          prepend-icon="email"
           type="email"
           required
         />
-        <mdb-input
+        <v-text-field
           v-model="formData.password"
           name="password"
           autocomplete="password"
           :label="$t('auth.password')"
-          icon="lock"
+          prepend-icon="lock"
           type="password"
           required
         />
-        <div class="text-center mt-3">
-          <mdb-btn
-            color="primary"
-            :disabled="loading"
-            class="btn-block z-depth-1a"
-            @click.native="login"
-          >
-            <span
-              v-if="loading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            <span v-else>{{ $t('auth.login') }}</span>
-          </mdb-btn>
-        </div>
-      </mdb-modal-body>
+        <v-btn
+          :disabled="loading"
+          :loading="loading"
+          color="primary"
+          block
+          @click.native="login"
+        >
+          {{ $t('auth.login') }}
+        </v-btn>
+      </v-card-text>
 
       <!-- Change password -->
-      <mdb-modal-body
-        v-if="mode === 'passwordChallenge'"
-        class="mx-3 grey-text"
-      >
-        <mdb-input
+      <v-card-text v-if="mode === 'passwordChallenge'">
+        <v-text-field
           v-model="formData.password"
           name="new-password"
           autocomplete="new-password"
           :label="$t('auth.password')"
-          icon="password"
+          prepend-icon="password"
           type="password"
           class="mb-5"
           required
         />
-        <mdb-input
+        <v-text-field
           v-model="formData.passwordConfirm"
           name="confirm-password"
           autocomplete="confirm-password"
           :label="$t('auth.passwordConfirm')"
-          icon="lock"
+          prepend-icon="lock"
           type="password"
           required
         />
-        <div class="text-center mt-3">
-          <mdb-btn
-            color="primary"
-            :disabled="loading"
-            class="btn-block z-depth-1a"
-            @click.native="submitChallenge"
-          >
-            <span
-              v-if="loading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            <span v-else>{{ $t('submit') }}</span>
-          </mdb-btn>
-        </div>
-      </mdb-modal-body>
+        <v-btn
+          :disabled="loading"
+          :loading="loading"
+          color="primary"
+          block
+          @click.native="submitChallenge"
+        >
+          {{ $t('submit') }}
+        </v-btn>
+      </v-card-text>
 
       <!-- Register -->
-      <mdb-modal-body v-if="mode === 'register'" class="mx-3 grey-text">
-        <mdb-input
+      <v-card-text v-if="mode === 'register'">
+        <v-text-field
           v-model="formData.username"
           name="username"
           autocomplete="username"
           :label="$t('auth.username')"
-          icon="user"
+          prepend-icon="face"
           type="text"
         />
-        <mdb-input
+        <v-text-field
           v-model="formData.email"
           name="email"
           autocomplete="email"
           :label="$t('auth.email')"
-          icon="envelope"
+          prepend-icon="email"
           type="email"
         />
-        <mdb-input
+        <v-text-field
           v-model="formData.password"
           name="new-password"
           autocomplete="new-password"
           :label="$t('auth.password')"
-          icon="lock"
+          prepend-icon="lock"
           type="password"
         >
-        </mdb-input>
-        <mdb-input
+        </v-text-field>
+        <v-text-field
           v-model="formData.passwordConfirm"
           name="confirm-password"
           autocomplete="confirm-password"
           :label="$t('auth.passwordConfirm')"
-          icon="lock"
+          prepend-icon="lock"
           type="password"
         />
-        <div class="text-center  mt-3">
-          <mdb-btn
-            color="primary"
-            :disabled="loading"
-            class="btn-block z-depth-1a"
-            @click.native="register"
-          >
-            <span
-              v-if="loading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            <span v-else>{{ $t('auth.register') }}</span>
-          </mdb-btn>
-        </div>
-      </mdb-modal-body>
+        <v-btn
+          :disabled="loading"
+          :loading="loading"
+          color="primary"
+          block
+          @click.native="register"
+        >
+          {{ $t('auth.register') }}
+        </v-btn>
+      </v-card-text>
 
       <!-- Confirmation code -->
-      <mdb-modal-body v-if="mode === 'confirmChallenge'" class="mx-3 grey-text">
-        <mdb-input
+      <v-card-text v-if="mode === 'confirmChallenge'">
+        <v-text-field
           v-model="formData.code"
           name="code"
           autocomplete="code"
           :label="$t('auth.confirmCode')"
-          icon="check-double"
+          prepend-icon="check-double"
           type="text"
           class="mb-5"
           required
         />
-        <div class="text-center mt-3">
-          <mdb-btn
-            color="primary"
-            :disabled="loading"
-            class="btn-block z-depth-1a"
-            @click.native="submitChallenge"
-          >
-            <span
-              v-if="loading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            <span v-else>{{ $t('submit') }}</span>
-          </mdb-btn>
-        </div>
-      </mdb-modal-body>
+        <v-btn
+          :disabled="loading"
+          :loading="loading"
+          color="primary"
+          block
+          @click.native="submitChallenge"
+        >
+          {{ $t('submit') }}
+        </v-btn>
+      </v-card-text>
 
       <!-- footer -->
-      <mdb-modal-footer center class="font-small grey-text justify-content-end">
+      <v-card-text class="subtitle">
         <span v-if="mode === 'login'">
           {{ $t('auth.registerMessage') }}
           <a href="#" @click="mode = 'register'">
@@ -184,47 +156,27 @@
             {{ $t('auth.login') }}
           </a>
         </span>
-      </mdb-modal-footer>
+      </v-card-text>
 
       <!-- errors -->
-      <mdb-alert v-if="errors.length" color="danger" class="mb-0 rounded-0">
+      <v-alert v-if="errors.length" type="error" class="mb-0" tile>
         <ul style="list-style-type:disc;">
           <li v-for="(error, index) in errors" :key="index">
             {{ error.message }}
           </li>
         </ul>
-      </mdb-alert>
-    </mdb-modal>
-  </mdb-container>
+      </v-alert>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
-import {
-  mdbContainer,
-  mdbBtn,
-  mdbModal,
-  mdbModalHeader,
-  mdbModalBody,
-  mdbModalFooter,
-  mdbInput,
-  mdbAlert
-} from 'mdbvue'
 export default {
   name: 'Auth',
-  components: {
-    mdbContainer,
-    mdbBtn,
-    mdbModal,
-    mdbModalHeader,
-    mdbModalBody,
-    mdbModalFooter,
-    mdbInput,
-    mdbAlert
-  },
-  props: { show: { type: Boolean, default: false } },
   data() {
     return {
-      mode: 'register',
+      show: false,
+      mode: 'login',
       loading: false,
       formData: {},
       errors: []

@@ -2,7 +2,7 @@ export default {
   submit: 'Submit',
   navbar: {
     search: 'Search...',
-    login: 'Login/Register',
+    login: 'Sign in',
     logout: 'Logout'
   },
   auth: {
@@ -13,10 +13,10 @@ export default {
     resetPassword: 'Reset password',
     passwordChallenge: 'Change password',
     confirmChallenge: 'Confirm Email',
-    usernameOrEmail: 'Your username/email',
-    email: 'Your email',
-    username: 'Your username',
-    password: 'Your password',
+    usernameOrEmail: 'Username/email',
+    email: 'Email',
+    username: 'Username',
+    password: 'Password',
     passwordConfirm: 'Confirm Password',
     confirmCode: 'Confirmation code'
   }

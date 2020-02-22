@@ -1,69 +1,32 @@
 <template>
   <!-- Avatar -->
-  <mdb-dropdown
-    v-if="$store.state.auth.authenticated"
-    tag="li"
-    class="nav-item"
-    end
-  >
-    <mdb-dropdown-toggle slot="toggle" tag="a" nav-link waves-fixed>
-      <img
-        src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
-        class="rounded-circle z-depth-0"
-        height="35"
-      />
-    </mdb-dropdown-toggle>
-    <mdb-dropdown-menu>
-      <mdb-dropdown-item>
-        {{ $t('navbar.logout') }}
-      </mdb-dropdown-item>
-    </mdb-dropdown-menu>
-  </mdb-dropdown>
+  <v-menu v-if="$store.state.auth.authenticated" offset-y>
+    <template v-slot:activator="{ on }">
+      <v-btn color="primary" dark icon v-on="on">
+        <v-avatar size="36">
+          <img
+            src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
+          />
+        </v-avatar>
+      </v-btn>
+    </template>
+    <v-list>
+      <v-list-item>
+        <v-list-item-title>{{ $t('navbar.logout') }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 
   <!-- signin/register -->
-  <div v-else>
-    <mdb-dropdown-toggle
-      tag="a"
-      nav-link
-      waves-fixed
-      icon="user"
-      @click.native="showAuth"
-    >
-      {{ $t('navbar.login') }}
-    </mdb-dropdown-toggle>
-    <auth :show="authVisible" @close="hideAuth" />
-  </div>
+  <auth v-else />
 </template>
 
 <script>
-import {
-  mdbDropdown,
-  mdbDropdownMenu,
-  mdbDropdownToggle,
-  mdbDropdownItem
-} from 'mdbvue'
-import Auth from '../auth'
+import Auth from './auth'
 export default {
   name: 'NavProfile',
   components: {
-    Auth,
-    mdbDropdown,
-    mdbDropdownMenu,
-    mdbDropdownToggle,
-    mdbDropdownItem
-  },
-  data() {
-    return {
-      authVisible: false
-    }
-  },
-  methods: {
-    showAuth() {
-      this.authVisible = true
-    },
-    hideAuth() {
-      this.authVisible = false
-    }
+    Auth
   }
 }
 </script>

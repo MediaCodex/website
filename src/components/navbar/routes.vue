@@ -1,27 +1,23 @@
 <template>
-  <mdb-navbar-nav>
-    <mdb-nav-item href="#" active>Home</mdb-nav-item>
-  </mdb-navbar-nav>
+  <v-list dense>
+    <v-list-item v-for="item in items" :key="item.text" link>
+      <v-list-item-action>
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-list-item-action>
+      <v-list-item-content>
+        <v-list-item-title>
+          {{ item.text }}
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+  </v-list>
 </template>
 
 <script>
-import {
-  mdbNavbarNav,
-  mdbNavItem
-  // mdbDropdown,
-  // mdbDropdownMenu,
-  // mdbDropdownToggle,
-  // mdbDropdownItem,
-} from 'mdbvue'
 export default {
   name: 'Routes',
-  components: {
-    mdbNavbarNav,
-    mdbNavItem
-    // mdbDropdown,
-    // mdbDropdownMenu,
-    // mdbDropdownToggle,
-    // mdbDropdownItem
-  }
+  data: () => ({
+    items: [{ icon: 'house', text: 'Home' }]
+  })
 }
 </script>

@@ -41,7 +41,11 @@ export default {
    * @see{@link https://github.com/nuxt-community/eslint-module ESLint Module}
    * @see{@link https://github.com/nuxt-community/stylelint-module Stylelint Module}
    */
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/stylelint-module'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/vuetify'
+  ],
 
   /**
    * Nuxt.js modules
@@ -49,13 +53,7 @@ export default {
    * @see{@link https://axios.nuxtjs.org/usage Axios Module}
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/dotenv',
-    'mdbvue/nuxt',
-    'nuxt-i18n'
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/dotenv', 'nuxt-i18n'],
 
   /**
    * Axios module configuration
@@ -75,6 +73,13 @@ export default {
       fallbackLocale: 'en'
     },
     locales: [{ code: 'en', file: 'en-US.js' }]
+  },
+
+  vuetify: {
+    defaultAssets: {
+      font: true,
+      icons: 'md'
+    }
   },
 
   /**
