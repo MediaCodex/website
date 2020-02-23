@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" width="500">
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" text class="text-none underscore">
+      <v-btn text class="text-none underscore" v-on="on">
         {{ $t('navbar.login') }}
       </v-btn>
     </template>
@@ -143,7 +143,8 @@
       </v-card-text>
 
       <!-- footer -->
-      <v-card-text class="subtitle">
+      <v-divider class="mx-4"></v-divider>
+      <v-subheader>
         <span v-if="mode === 'login'">
           {{ $t('auth.registerMessage') }}
           <a href="#" @click="mode = 'register'">
@@ -156,7 +157,7 @@
             {{ $t('auth.login') }}
           </a>
         </span>
-      </v-card-text>
+      </v-subheader>
 
       <!-- errors -->
       <v-alert v-if="errors.length" type="error" class="mb-0" tile>
