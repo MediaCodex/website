@@ -10,25 +10,27 @@
         {{ $t(`auth.${mode}`) }}
       </v-card-title>
 
-      <!-- Login -->
-      <v-card-text v-if="mode === 'login'">
-        <login @error="error = $event" @success="challenge" />
-      </v-card-text>
+      <v-fade-transition group leave-absolute>
+        <!-- Login -->
+        <v-card-text v-if="mode === 'login'" key="login">
+          <login @error="error = $event" @success="challenge" />
+        </v-card-text>
 
-      <!-- Register -->
-      <v-card-text v-if="mode === 'register'">
-        <register @error="error = $event" @success="challenge" />
-      </v-card-text>
+        <!-- Register -->
+        <v-card-text v-if="mode === 'register'" key="register">
+          <register @error="error = $event" @success="challenge" />
+        </v-card-text>
 
-      <!-- Change password -->
-      <v-card-text v-if="mode === 'passwordChallenge'">
-        <challenge-password @error="error = $event" @success="challenge" />
-      </v-card-text>
+        <!-- Change password -->
+        <v-card-text v-if="mode === 'passwordChallenge'" key="challengePass">
+          <challenge-password @error="error = $event" @success="challenge" />
+        </v-card-text>
 
-      <!-- Confirmation code -->
-      <v-card-text v-if="mode === 'confirmChallenge'">
-        <challenge-confirm @error="error = $event" @success="challenge" />
-      </v-card-text>
+        <!-- Confirmation code -->
+        <v-card-text v-if="mode === 'confirmChallenge'" key="challengeConfirm">
+          <challenge-confirm @error="error = $event" @success="challenge" />
+        </v-card-text>
+      </v-fade-transition>
 
       <!-- footer -->
       <v-divider class="mx-4"></v-divider>
