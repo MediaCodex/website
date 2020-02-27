@@ -19,5 +19,8 @@ export default {
     password: 'Password',
     passwordConfirm: 'Confirm Password',
     confirmCode: 'Confirmation code'
+  },
+  settings: {
+    darkmode: 'Dark mode'
   }
 }

@@ -14,6 +14,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <search />
+        <settings />
         <profile />
       </v-app-bar>
 
@@ -27,11 +28,13 @@
 import Search from '~/components/navbar/search'
 import Routes from '~/components/navbar/routes'
 import Profile from '~/components/navbar/profile'
+import Settings from '~/components/navbar/settings'
 export default {
   components: {
     Search,
     Routes,
-    Profile
+    Profile,
+    Settings
   },
   middleware: ['auth'],
   data: () => ({
