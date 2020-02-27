@@ -10,12 +10,9 @@
       dense
     ></v-text-field>
   </v-layout> -->
-  <v-tooltip bottom>
-    <template v-slot:activator="{ on }">
-      <v-icon dark v-on="on">search</v-icon>
-    </template>
-    <span>Coming soon</span>
-  </v-tooltip>
+  <v-btn dark icon size="32" disabled>
+    <v-icon>search</v-icon>
+  </v-btn>
 </template>
 
 <script>

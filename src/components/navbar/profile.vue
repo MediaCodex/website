@@ -2,8 +2,8 @@
   <!-- Avatar -->
   <v-menu v-if="$store.state.auth.authenticated" offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn color="primary" dark icon v-on="on">
-        <v-avatar size="36">
+      <v-btn color="primary" dark icon size="32" v-on="on">
+        <v-avatar size="32">
           <img
             src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
           />

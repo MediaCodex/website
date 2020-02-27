@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y :close-on-content-click="false">
     <template v-slot:activator="{ on }">
-      <v-btn dark icon v-on="on">
+      <v-btn dark icon size="32" v-on="on">
         <v-icon>settings</v-icon>
       </v-btn>
     </template>
