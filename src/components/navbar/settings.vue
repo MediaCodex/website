@@ -5,16 +5,14 @@
         <v-icon>settings</v-icon>
       </v-btn>
     </template>
-    <v-list class="px-2">
+    <v-list>
       <v-list-item>
-        <v-list-item-title>
-          <v-switch
-            v-model="$vuetify.theme.dark"
-            append-icon="brightness_4"
-            :label="$t('settings.darkmode')"
-            primary
-          />
-        </v-list-item-title>
+        <v-switch
+          v-model="$vuetify.theme.dark"
+          append-icon="brightness_4"
+          :label="$t('settings.darkmode')"
+          primary
+        />
       </v-list-item>
     </v-list>
   </v-menu>
