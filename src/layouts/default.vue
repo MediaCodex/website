@@ -19,7 +19,9 @@
       </v-app-bar>
 
       <!-- Main content -->
-      <nuxt />
+      <v-content>
+        <nuxt />
+      </v-content>
     </v-app>
   </div>
 </template>
