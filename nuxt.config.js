@@ -72,14 +72,16 @@ export default {
     vueI18n: {
       fallbackLocale: 'en'
     },
-    locales: [{ code: 'en', file: 'en-US.js' }]
+    locales: [{ code: 'en', file: 'en-US/index.js' }]
   },
 
   vuetify: {
     defaultAssets: {
       font: true,
       icons: 'md'
-    }
+    },
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true
   },
 
   /**
