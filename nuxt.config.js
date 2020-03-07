@@ -68,11 +68,12 @@ export default {
   i18n: {
     defaultLocale: 'en',
     lazy: true,
+    seo: false,
     langDir: 'lang/',
     vueI18n: {
       fallbackLocale: 'en'
     },
-    locales: [{ code: 'en', file: 'en-US/index.js' }]
+    locales: [{ code: 'en', iso: 'en-US', file: 'en-US/index.js' }]
   },
 
   vuetify: {

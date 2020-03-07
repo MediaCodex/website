@@ -41,6 +41,9 @@ export default {
   middleware: ['auth'],
   data: () => ({
     drawer: true
-  })
+  }),
+  head() {
+    return this.$nuxtI18nSeo()
+  }
 }
 </script>
