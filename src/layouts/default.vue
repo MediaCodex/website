@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import Meta from '~/assets/js/meta'
 import Search from '~/components/navbar/search'
 import Routes from '~/components/navbar/routes'
 import Profile from '~/components/navbar/profile'
@@ -43,7 +44,12 @@ export default {
     drawer: true
   }),
   head() {
-    return this.$nuxtI18nSeo()
+    const i18nSeo = this.$nuxtI18nSeo()
+    return {
+      htmlAttrs: i18nSeo.htmlAttrs,
+      meta: [...Meta, ...i18nSeo.meta],
+      link: i18nSeo.link
+    }
   }
 }
 </script>
