@@ -29,6 +29,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/vuetify": "^1.11.0",
     "change-case": "^4.1.1",
+    "moment-timezone": "^0.5.28",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.5.0"
   },
