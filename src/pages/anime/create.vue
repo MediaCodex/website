@@ -1,7 +1,21 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container fluid>
+    <v-breadcrumbs :items="breadcrumbs">
+      <template v-slot:item="{ item }">
+        <v-breadcrumbs-item nuxt exact :to="item.to" :disabled="item.disabled">
+          {{ item.text }}
+        </v-breadcrumbs-item>
+      </template>
+    </v-breadcrumbs>
     <v-row>
-      <v-col cols="6">
+      <v-col>
+        <h1 class="display-2">{{ $t('anime.create.title') }}</h1>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <!-- Basic Info -->
+      <v-col>
         <v-card class="mx-auto">
           <v-card-text>
             <v-form>
@@ -46,6 +60,21 @@
           </v-card-text>
         </v-card>
       </v-col>
+
+      <!-- dates -->
+      <v-col>
+        <v-card class="mx-auto">
+          <v-card-text>
+            <v-form>
+              <datetime
+                v-model="premiered"
+                outlined
+                :label="$t('create.premiered')"
+              />
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -53,13 +82,22 @@
 <script>
 import { paramCase } from 'change-case'
 import { typesDisplay } from '~/assets/js/anime'
+import Datetime from '~/components/datetime'
 export default {
+  components: {
+    Datetime
+  },
   data: () => ({
     type: 'series',
     title: null,
     slug: null,
     synopsis: null,
-    episodes: null
+    episodes: null,
+    breadcrumbs: [
+      { text: 'Anime', to: '/anime', disabled: false },
+      { text: 'Create', to: '/anime/create', disabled: true }
+    ],
+    premiered: null
   }),
   computed: {
     defaultSlug() {

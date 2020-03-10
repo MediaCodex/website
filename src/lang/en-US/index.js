@@ -13,7 +13,8 @@ export default {
   create: {
     title: 'Title',
     slug: 'Slug',
-    synopsis: 'Synopsis'
+    synopsis: 'Synopsis',
+    premiered: 'Premiered'
   },
   auth,
   anime

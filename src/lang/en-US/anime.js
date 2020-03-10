@@ -1,4 +1,7 @@
 export default {
+  create: {
+    title: 'Create Anime'
+  },
   type: 'Type',
   types: {
     series: 'TV Show',
