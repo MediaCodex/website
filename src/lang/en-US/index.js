@@ -16,7 +16,14 @@ export default {
     synopsis: 'Synopsis',
     premiered: 'Premiered',
     airedFrom: 'Started Airing',
-    airedTo: 'Ended Airing'
+    airedTo: 'Ended Airing',
+    schedule: {
+      title: 'Airing Schedule',
+      monthly: 'Monthly',
+      time: 'Time',
+      weekday: 'Weekday',
+      monthday: 'Date'
+    }
   },
   auth,
   anime

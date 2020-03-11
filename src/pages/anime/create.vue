@@ -76,6 +76,11 @@
                 outlined
                 :label="$t('create.airedTo')"
               />
+              <v-divider class="mb-4" />
+              <h4 class="subtitle-1 text-center">
+                {{ $t('create.schedule.title') }}
+              </h4>
+              <schedule outlined />
             </v-form>
           </v-card-text>
         </v-card>
@@ -89,8 +94,9 @@ import { paramCase } from 'change-case'
 import { typesDisplay } from '~/assets/js/anime'
 import Datetime from '~/components/datetime'
 import Breadcrumbs from '~/components/breadcrumbs'
+import Schedule from '~/components/schedule'
 export default {
-  components: { Datetime, Breadcrumbs },
+  components: { Datetime, Breadcrumbs, Schedule },
   data: () => ({
     type: 'series',
     title: null,
