@@ -1,13 +1,6 @@
 <template>
   <v-container fluid>
-    <v-breadcrumbs :items="breadcrumbs">
-      <template v-slot:item="{ item }">
-        <v-breadcrumbs-item nuxt exact :to="item.to" :disabled="item.disabled">
-          <v-icon v-if="item.icon">{{ item.icon }}</v-icon>
-          {{ item.text }}
-        </v-breadcrumbs-item>
-      </template>
-    </v-breadcrumbs>
+    <breadcrumbs :items="breadcrumbs" />
     <section class="mb-6 text-center">
       <h1 class="mb-2 display-3">Anime home</h1>
     </section>
@@ -28,7 +21,9 @@
 </template>
 
 <script>
+import Breadcrumbs from '~/components/breadcrumbs'
 export default {
+  components: { Breadcrumbs },
   data: () => ({
     breadcrumbs: [
       { icon: 'home', to: '/', disabled: false },

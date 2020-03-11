@@ -1,12 +1,6 @@
 <template>
   <v-container fluid>
-    <v-breadcrumbs :items="breadcrumbs">
-      <template v-slot:item="{ item }">
-        <v-breadcrumbs-item nuxt exact :to="item.to" :disabled="item.disabled">
-          {{ item.text }}
-        </v-breadcrumbs-item>
-      </template>
-    </v-breadcrumbs>
+    <breadcrumbs :items="breadcrumbs" />
     <v-row>
       <v-col>
         <h1 class="display-2">{{ $t('anime.create.title') }}</h1>
@@ -94,10 +88,9 @@
 import { paramCase } from 'change-case'
 import { typesDisplay } from '~/assets/js/anime'
 import Datetime from '~/components/datetime'
+import Breadcrumbs from '~/components/breadcrumbs'
 export default {
-  components: {
-    Datetime
-  },
+  components: { Datetime, Breadcrumbs },
   data: () => ({
     type: 'series',
     title: null,
@@ -105,6 +98,7 @@ export default {
     synopsis: null,
     episodes: null,
     breadcrumbs: [
+      { icon: 'home', to: '/', disabled: false },
       { text: 'Anime', to: '/anime', disabled: false },
       { text: 'Create', to: '/anime/create', disabled: true }
     ],
