@@ -31,7 +31,13 @@
           <v-date-picker v-model="date" scrollable no-title class="picker" />
         </v-tab-item>
         <v-tab-item key="time">
-          <v-time-picker v-model="time" scrollable no-title class="picker" />
+          <v-time-picker
+            v-model="time"
+            format="24hr"
+            scrollable
+            no-title
+            class="picker"
+          />
         </v-tab-item>
       </v-tabs-items>
 
