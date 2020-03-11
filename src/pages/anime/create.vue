@@ -71,6 +71,17 @@
                 outlined
                 :label="$t('create.premiered')"
               />
+              <datetime
+                v-model="airedFrom"
+                outlined
+                :label="$t('create.airedFrom')"
+                required
+              />
+              <datetime
+                v-model="airedTo"
+                outlined
+                :label="$t('create.airedTo')"
+              />
             </v-form>
           </v-card-text>
         </v-card>
@@ -97,7 +108,9 @@ export default {
       { text: 'Anime', to: '/anime', disabled: false },
       { text: 'Create', to: '/anime/create', disabled: true }
     ],
-    premiered: null
+    premiered: null,
+    airedFrom: null,
+    airedTo: null
   }),
   computed: {
     defaultSlug() {

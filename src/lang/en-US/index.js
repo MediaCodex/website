@@ -14,7 +14,9 @@ export default {
     title: 'Title',
     slug: 'Slug',
     synopsis: 'Synopsis',
-    premiered: 'Premiered'
+    premiered: 'Premiered',
+    airedFrom: 'Started Airing',
+    airedTo: 'Ended Airing'
   },
   auth,
   anime
