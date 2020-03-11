@@ -50,8 +50,7 @@
 
 <script>
 import moment from 'moment'
-import VTextField from 'vuetify/es5/components/VTextField'
-export default VTextField.extend({
+export default {
   name: 'Datetime',
   props: {
     saveBtn: { type: String, default: 'Save' },
@@ -96,10 +95,10 @@ export default VTextField.extend({
       this.close()
     }
   }
-})
+}
 </script>
 
-<style scoped scss>
+<style scoped>
 .picker {
   padding: 0 !important;
   box-shadow: none;
