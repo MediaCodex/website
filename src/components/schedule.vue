@@ -70,7 +70,7 @@ export default {
     showTimePicker: false,
     monthdays: [
       '01',
-      '02,
+      '02',
       '03',
       '04',
       '05',
@@ -99,7 +99,7 @@ export default {
       '28',
       '29',
       '30',
-      '31',
+      '31'
     ],
     monthly: false,
     weekday: moment.weekdays()[0],
