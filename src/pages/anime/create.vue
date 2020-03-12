@@ -15,80 +15,90 @@
       </v-btn>
     </v-row>
 
-    <v-row dense>
-      <!-- Basic Info -->
-      <v-col cols="12" md="6">
-        <v-card class="mx-auto" height="35rem">
+    <!-- block one -->
+    <v-row fluid>
+      <v-col>
+        <v-card class="mx-auto">
           <v-card-text>
-            <v-form>
-              <v-select
-                v-model="type"
-                :items="types"
-                :label="$t('anime.type')"
-                required
-                outlined
-              />
-              <v-text-field
-                v-model="title"
-                :label="$t('create.title')"
-                type="text"
-                outlined
-                required
-                counter="255"
-              />
-              <v-text-field
-                v-model="slug"
-                :label="$t('create.slug')"
-                type="text"
-                outlined
-                required
-                counter="100"
-                :placeholder="defaultSlug"
-              />
-              <v-textarea
-                v-model="synopsis"
-                :label="$t('create.synopsis')"
-                outlined
-                counter="1024"
-              />
-              <v-text-field
-                v-model="episodes"
-                :label="$t('anime.episodes')"
-                outlined
-                required
-                type="number"
-              />
-            </v-form>
-          </v-card-text>
-        </v-card>
-      </v-col>
+            <v-row>
+              <!-- Basic Info -->
+              <v-col cols="12" md="6">
+                <v-form>
+                  <v-select
+                    v-model="type"
+                    :items="types"
+                    :label="$t('anime.type')"
+                    required
+                    outlined
+                  />
+                  <v-text-field
+                    v-model="title"
+                    :label="$t('create.title')"
+                    type="text"
+                    outlined
+                    required
+                    counter="255"
+                  />
+                  <v-text-field
+                    v-model="slug"
+                    :label="$t('create.slug')"
+                    type="text"
+                    outlined
+                    required
+                    counter="100"
+                    :placeholder="defaultSlug"
+                  />
+                  <v-textarea
+                    v-model="synopsis"
+                    :label="$t('create.synopsis')"
+                    outlined
+                    counter="1024"
+                    rows="5"
+                  />
+                  <v-text-field
+                    v-if="episodic"
+                    v-model="episodes"
+                    :label="$t('anime.episodes')"
+                    outlined
+                    required
+                    type="number"
+                  />
+                  <v-text-field
+                    v-model="duration"
+                    :label="$t(`anime.duration${episodic ? 'Avg' : ''}Mins`)"
+                    outlined
+                    required
+                    type="number"
+                  />
+                </v-form>
+              </v-col>
 
-      <!-- dates -->
-      <v-col cols="12" md="6">
-        <v-card class="mx-auto" height="35rem">
-          <v-card-text>
-            <v-form>
-              <datetime-picker
-                v-model="premiered"
-                outlined
-                :label="$t('create.premiered')"
-              />
-              <date-picker
-                v-model="airedFrom"
-                outlined
-                :label="$t('create.airedFrom')"
-              />
-              <date-picker
-                v-model="airedTo"
-                outlined
-                :label="$t('create.airedTo')"
-              />
-              <v-divider class="mb-4" />
-              <h4 class="subtitle-1 text-center">
-                {{ $t('create.schedule.title') }}
-              </h4>
-              <schedule outlined />
-            </v-form>
+              <!-- dates -->
+              <v-col cols="12" md="6">
+                <v-form>
+                  <datetime-picker
+                    v-model="premiered"
+                    outlined
+                    :label="$t('create.premiered')"
+                  />
+                  <date-picker
+                    v-model="airedFrom"
+                    outlined
+                    :label="$t('create.airedFrom')"
+                  />
+                  <date-picker
+                    v-model="airedTo"
+                    outlined
+                    :label="$t('create.airedTo')"
+                  />
+                  <v-divider class="mb-4" />
+                  <h4 class="subtitle-1 text-center">
+                    {{ $t('create.schedule.title') }}
+                  </h4>
+                  <schedule outlined />
+                </v-form>
+              </v-col>
+            </v-row>
           </v-card-text>
         </v-card>
       </v-col>
@@ -118,15 +128,20 @@ export default {
     slug: null,
     synopsis: null,
     episodes: null,
+    duration: null,
+    status: 'planned',
     premiered: null,
     airedFrom: null,
     airedTo: null
   }),
   computed: {
+    types: typesDisplay,
     defaultSlug() {
       return this.title ? paramCase(this.title) : null
     },
-    types: typesDisplay
+    episodic() {
+      return this.type !== 'movie'
+    }
   },
   methods: {
     submit() {

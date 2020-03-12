@@ -10,5 +10,9 @@ export default {
     special: 'Special',
     ona: 'ONA'
   },
-  episodes: 'Episodes'
+  episodes: 'Episodes',
+  duration: 'Duration',
+  durationAvg: 'Avg. Duration',
+  durationMins: 'Duration (mins)',
+  durationAvgMins: 'Avg. Duration (mins)'
 }
