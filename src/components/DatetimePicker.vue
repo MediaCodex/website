@@ -14,7 +14,7 @@
         :rounded="rounded"
         :flat="flat"
         v-on="on"
-      ></v-text-field>
+      />
     </template>
     <v-card>
       <v-card-title>{{ datetime }}</v-card-title>
@@ -44,10 +44,10 @@
       <!-- actions -->
       <v-card-actions>
         <v-btn text color="primary" @click="close">
-          {{ cancelBtn }}
+          {{ cancelBtn || this.$t('cancel') }}
         </v-btn>
         <v-btn text color="primary" @click="save">
-          {{ saveBtn }}
+          {{ saveBtn || this.$t('save') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -57,10 +57,10 @@
 <script>
 import moment from 'moment'
 export default {
-  name: 'Datetime',
+  name: 'DatetimePicker',
   props: {
-    saveBtn: { type: String, default: 'Save' },
-    cancelBtn: { type: String, default: 'Cancel' },
+    saveBtn: { type: String, default: null },
+    cancelBtn: { type: String, default: null },
     value: { type: [Date, String], default: null },
     readonly: { type: Boolean, default: true },
     // VTextField passthrough (only stylistic ones are defined manually)

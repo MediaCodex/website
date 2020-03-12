@@ -2,6 +2,8 @@ import auth from './auth'
 import anime from './anime'
 export default {
   submit: 'Submit',
+  cancel: 'Cancel',
+  save: 'Save',
   navbar: {
     search: 'Search...',
     login: 'Sign in',

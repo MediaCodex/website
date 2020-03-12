@@ -7,10 +7,10 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row dense>
       <!-- Basic Info -->
-      <v-col>
-        <v-card class="mx-auto">
+      <v-col cols="12" md="6">
+        <v-card class="mx-auto" height="35rem">
           <v-card-text>
             <v-form>
               <v-select
@@ -56,22 +56,21 @@
       </v-col>
 
       <!-- dates -->
-      <v-col>
-        <v-card class="mx-auto">
+      <v-col cols="12" md="6">
+        <v-card class="mx-auto" height="35rem">
           <v-card-text>
             <v-form>
-              <datetime
+              <datetime-picker
                 v-model="premiered"
                 outlined
                 :label="$t('create.premiered')"
               />
-              <datetime
+              <date-picker
                 v-model="airedFrom"
                 outlined
                 :label="$t('create.airedFrom')"
-                required
               />
-              <datetime
+              <date-picker
                 v-model="airedTo"
                 outlined
                 :label="$t('create.airedTo')"
@@ -92,22 +91,25 @@
 <script>
 import { paramCase } from 'change-case'
 import { typesDisplay } from '~/assets/js/anime'
-import Datetime from '~/components/datetime'
+import DatetimePicker from '~/components/DatetimePicker'
+import DatePicker from '~/components/DatePicker'
 import Breadcrumbs from '~/components/breadcrumbs'
 import Schedule from '~/components/schedule'
 export default {
-  components: { Datetime, Breadcrumbs, Schedule },
+  components: { DatetimePicker, DatePicker, Breadcrumbs, Schedule },
   data: () => ({
-    type: 'series',
-    title: null,
-    slug: null,
-    synopsis: null,
-    episodes: null,
+    showAiredFrom: false,
     breadcrumbs: [
       { icon: 'home', to: '/', disabled: false },
       { text: 'Anime', to: '/anime', disabled: false },
       { text: 'Create', to: '/anime/create', disabled: true }
     ],
+    // form data
+    type: 'series',
+    title: null,
+    slug: null,
+    synopsis: null,
+    episodes: null,
     premiered: null,
     airedFrom: null,
     airedTo: null
