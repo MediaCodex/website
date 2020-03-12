@@ -4,6 +4,8 @@ export default {
   submit: 'Submit',
   cancel: 'Cancel',
   save: 'Save',
+  clear: 'Clear inputs',
+  confirmation: 'Are you sure about that?',
   navbar: {
     search: 'Search...',
     login: 'Sign in',

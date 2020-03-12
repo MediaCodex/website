@@ -1,10 +1,18 @@
 <template>
   <v-container fluid>
     <breadcrumbs :items="breadcrumbs" />
-    <v-row>
-      <v-col>
-        <h1 class="display-2">{{ $t('anime.create.title') }}</h1>
-      </v-col>
+    <section class="mb-6 text-center">
+      <h1 class="mb-2 display-3">{{ $t('anime.create.title') }}</h1>
+    </section>
+
+    <!-- page actions -->
+    <v-row align="right" justify="end" class="ma-1">
+      <v-btn fab small elevation="1" class="mr-1" @click="refresh">
+        <v-icon dark>refresh</v-icon>
+      </v-btn>
+      <v-btn fab small elevation="1" color="error darken" @click="clear">
+        <v-icon dark>clear</v-icon>
+      </v-btn>
     </v-row>
 
     <v-row dense>
@@ -128,6 +136,13 @@ export default {
         synopsis: this.synopsis
       }
       console.log(body)
+    },
+    clear() {
+      // TODO: confirmation overlay
+      Object.assign(this.$data, this.$options.data())
+    },
+    refresh() {
+      // TODO: reload external data sources
     }
   }
 }
