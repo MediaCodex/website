@@ -68,6 +68,39 @@ export default {
   },
   data: () => ({
     showTimePicker: false,
+    monthdays: [
+      '01',
+      '02,
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31',
+    ],
     monthly: false,
     weekday: moment.weekdays()[0],
     monthday: '01',
@@ -76,13 +109,6 @@ export default {
   computed: {
     weekdays() {
       return moment.weekdays()
-    },
-    monthdays() {
-      const days = []
-      for (let i = 1; i <= 31; i++) {
-        days.push(`${i}`.padStart(2, '0'))
-      }
-      return days
     }
   }
 }
