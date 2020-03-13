@@ -1,22 +1,34 @@
 <template>
   <v-container fluid>
-    <breadcrumbs :items="breadcrumbs" />
-    <section class="mb-6 text-center">
-      <h1 class="mb-2 display-3">{{ $t('anime.create.title') }}</h1>
-    </section>
+    <!-- header -->
+    <v-row class="px-4" dense>
+      <!-- navigation -->
+      <v-col align-self="end">
+        <v-btn icon nuxt exact to="/anime">
+          <v-icon dark>arrow_back</v-icon>
+        </v-btn>
+      </v-col>
 
-    <!-- page actions -->
-    <v-row align="right" justify="end" class="ma-1">
-      <v-btn fab small elevation="1" class="mr-1" @click="refresh">
-        <v-icon dark>refresh</v-icon>
-      </v-btn>
-      <v-btn fab small elevation="1" color="error darken" @click="clear">
-        <v-icon dark>clear</v-icon>
-      </v-btn>
+      <!-- title -->
+      <v-col>
+        <section class="text-center">
+          <h1 class="mb-2 display-3">{{ $t('anime.create.title') }}</h1>
+        </section>
+      </v-col>
+
+      <!-- actions -->
+      <v-col align="right" justify="end" align-self="end">
+        <v-btn icon class="mr-1" @click="refresh">
+          <v-icon dark>refresh</v-icon>
+        </v-btn>
+        <v-btn icon color="error darken" @click="clear">
+          <v-icon dark>clear</v-icon>
+        </v-btn>
+      </v-col>
     </v-row>
 
     <!-- block one -->
-    <v-row fluid>
+    <v-row>
       <v-col>
         <v-card class="mx-auto">
           <v-card-text>
@@ -111,17 +123,11 @@ import { paramCase } from 'change-case'
 import { typesDisplay } from '~/assets/js/anime'
 import DatetimePicker from '~/components/DatetimePicker'
 import DatePicker from '~/components/DatePicker'
-import Breadcrumbs from '~/components/breadcrumbs'
 import Schedule from '~/components/schedule'
 export default {
-  components: { DatetimePicker, DatePicker, Breadcrumbs, Schedule },
+  components: { DatetimePicker, DatePicker, Schedule },
   data: () => ({
     showAiredFrom: false,
-    breadcrumbs: [
-      { icon: 'home', to: '/', disabled: false },
-      { text: 'Anime', to: '/anime', disabled: false },
-      { text: 'Create', to: '/anime/create', disabled: true }
-    ],
     // form data
     type: 'series',
     title: null,
