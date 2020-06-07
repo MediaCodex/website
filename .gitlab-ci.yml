@@ -1,2 +1,19 @@
 include:
   - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/sonarcloud.yml'
+
+default:
+  image: node:erbium
+
+stages:
+  - install
+  - lint
+
+install:
+  stage: install
+  script: 
+    - npm ci
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
