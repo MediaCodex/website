@@ -4,6 +4,11 @@ include:
 default:
   image: node:erbium
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+
 stages:
   - install
   - lint
