@@ -5,9 +5,10 @@ include:
 default:
   image: node:erbium
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
+    key: "${CI_COMMIT_REF_SLUG}"
     paths:
-    - node_modules/
+      - node_modules/
+      - .terraform
 
 stages:
   - install
