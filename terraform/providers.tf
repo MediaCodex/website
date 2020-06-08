@@ -6,7 +6,7 @@ terraform {
     encrypt        = true
     dynamodb_table = "terraform-state-lock"
     role_arn       = "arn:aws:iam::939514526661:role/remotestate/website"
-    session_name = "terraform"
+    session_name   = "terraform"
   }
 }
 
