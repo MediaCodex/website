@@ -48,7 +48,7 @@ deploy_dev:
   environment:
     name: development
   variables:
-    BUCKET: mediacodex-dev
+    BUCKET: mediacodex-dev-website
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
   dependencies:
@@ -62,7 +62,7 @@ deploy_prod:
   environment:
     name: production
   variables:
-    BUCKET: mediacodex-net
+    BUCKET: mediacodex-prod-website
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_prod
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_prod
   dependencies:

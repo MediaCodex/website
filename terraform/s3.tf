@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "default" {
-  bucket = replace(local.domain, ".", "-")
+  bucket = "mediacodex-${local.environment}-website"
   acl    = "public-read"
 
   versioning {
