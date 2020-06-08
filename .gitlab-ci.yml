@@ -38,10 +38,10 @@ build:
 
 .deploy:
   stage: deploy
-  image:
-    name: amazon/aws-cli
+  image: python:latest
   script:
-    - s3 cp dist s3://$BUCKET --recursive
+    - pip install awscli
+    - aws s3 cp dist s3://$BUCKET --recursive
 
 deploy_dev:
   extends:
