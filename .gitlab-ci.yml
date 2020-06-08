@@ -40,7 +40,7 @@ build:
   image:
     name: amazon/aws-cli
   script:
-    - aws s3 cp dist s3://arn:aws:s3:::$BUCKET --recursive
+    - aws s3 cp dist s3://$BUCKET --recursive
 
 deploy_dev:
   extends:
