@@ -1,17 +1,21 @@
 include:
   - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/sonarcloud.yml'
+  - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/terraform.yml'
 
 default:
   image: node:erbium
-
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-  - node_modules/
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
+    - dist/
 
 stages:
   - install
-  - lint
+  - validate
+  - plan
+  - build
+  - deploy
 
 install:
   stage: install
@@ -19,6 +23,44 @@ install:
     - npm ci
 
 lint:
-  stage: lint
+  stage: validate
   script:
     - npm run lint
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+.deploy:
+  stage: deploy
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  script:
+    - terraform init
+    - terraform workspace new $CI_ENVIRONMENT_NAME
+    - terraform apply -auto-approve
+
+deploy_dev:
+  extends:
+    - .deploy
+  environment:
+    name: development
+  dependencies:
+    - build
+  only:
+    - master
+
+deploy_prod:
+  extends:
+    - .deploy
+  environment:
+    name: production
+  dependencies:
+    - build
+  only:
+    - master
+  when: manual
