@@ -14,6 +14,7 @@ stages:
   - install
   - validate
   - plan
+  - getenv
   - build
   - deploy
 
@@ -27,7 +28,38 @@ lint:
   script:
     - npm run lint
 
-build:
+.getenv: 
+  stage: getenv
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  script:
+    - cd terraform
+    - terraform init
+    - terraform workspace select $CI_ENVIRONMENT_NAME
+    - terraform output nuxt -no-color > ../.env
+  artifacts:
+    expire_in: 1 week
+    paths:
+       - .env
+
+getenv_dev:
+  extends:
+    - .aws_dev
+    - .getenv
+  environment:
+    name: development
+
+getenv_prod:
+  extends:
+    - .aws_prod
+    - .getenv
+  environment:
+    name: production
+
+.build:
   stage: build
   script:
     - npm run build
@@ -35,6 +67,20 @@ build:
     expire_in: 1 week
     paths:
       - dist/
+
+build_dev:
+  extends: .build
+  environment:
+    name: development
+  dependencies:
+    - getenv_dev
+
+build_prod:
+  extends: .build
+  environment:
+    name: production
+  dependencies:
+    - getenv_prod
 
 .deploy:
   stage: deploy
@@ -45,29 +91,27 @@ build:
 
 deploy_dev:
   extends:
+    - .aws_dev
     - .deploy
   environment:
     name: development
   variables:
     BUCKET: mediacodex.dev
-    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_dev
-    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_dev
   dependencies:
-    - build
+    - build_dev
   only:
     - master
 
 deploy_prod:
   extends:
+    - .aws_prod
     - .deploy
   environment:
     name: production
   variables:
     BUCKET: mediacodex.net
-    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_prod
-    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_prod
   dependencies:
-    - build
+    - build_prod
   only:
     - master
   when: manual
