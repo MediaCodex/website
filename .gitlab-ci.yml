@@ -94,29 +94,29 @@ deploy_dev:
 ###
 # prod
 ###
-# getenv_prod:
-#   extends:
-#     - .aws_prod
-#     - .getenv
-#   environment:
-#     name: production
-#
-# build_prod:
-#   extends: .build
-#   environment:
-#     name: production
-#   dependencies:
-#     - getenv_prod
-# deploy_prod:
-#   extends:
-#     - .aws_prod
-#     - .deploy
-#   environment:
-#     name: production
-#   variables:
-#     BUCKET: mediacodex.net
-#   dependencies:
-#     - build_prod
-#   only:
-#     - master
-#   when: manual
+getenv_prod:
+  extends:
+    - .aws_prod
+    - .getenv
+  environment:
+    name: production
+
+build_prod:
+  extends: .build
+  environment:
+    name: production
+  dependencies:
+    - getenv_prod
+
+deploy_prod:
+  extends:
+    - .aws_prod
+    - .deploy
+  environment:
+    name: production
+  variables:
+    BUCKET: mediacodex.net
+  dependencies:
+    - build_prod
+  only:
+    - master
