@@ -45,20 +45,6 @@ lint:
     paths:
        - .env
 
-getenv_dev:
-  extends:
-    - .aws_dev
-    - .getenv
-  environment:
-    name: development
-
-getenv_prod:
-  extends:
-    - .aws_prod
-    - .getenv
-  environment:
-    name: production
-
 .build:
   stage: build
   script:
@@ -68,26 +54,29 @@ getenv_prod:
     paths:
       - dist/
 
-build_dev:
-  extends: .build
-  environment:
-    name: development
-  dependencies:
-    - getenv_dev
-
-build_prod:
-  extends: .build
-  environment:
-    name: production
-  dependencies:
-    - getenv_prod
-
 .deploy:
   stage: deploy
   image: python:latest
   script:
     - pip install awscli
     - aws s3 cp dist s3://$BUCKET --recursive
+
+###
+# dev
+###
+getenv_dev:
+  extends:
+    - .aws_dev
+    - .getenv
+  environment:
+    name: development
+
+build_dev:
+  extends: .build
+  environment:
+    name: development
+  dependencies:
+    - getenv_dev
 
 deploy_dev:
   extends:
@@ -102,16 +91,32 @@ deploy_dev:
   only:
     - master
 
-deploy_prod:
-  extends:
-    - .aws_prod
-    - .deploy
-  environment:
-    name: production
-  variables:
-    BUCKET: mediacodex.net
-  dependencies:
-    - build_prod
-  only:
-    - master
-  when: manual
+###
+# prod
+###
+# getenv_prod:
+#   extends:
+#     - .aws_prod
+#     - .getenv
+#   environment:
+#     name: production
+#
+# build_prod:
+#   extends: .build
+#   environment:
+#     name: production
+#   dependencies:
+#     - getenv_prod
+# deploy_prod:
+#   extends:
+#     - .aws_prod
+#     - .deploy
+#   environment:
+#     name: production
+#   variables:
+#     BUCKET: mediacodex.net
+#   dependencies:
+#     - build_prod
+#   only:
+#     - master
+#   when: manual
