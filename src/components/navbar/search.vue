@@ -11,7 +11,7 @@
     ></v-text-field>
   </v-layout> -->
   <v-btn dark icon size="32" disabled>
-    <v-icon>search</v-icon>
+    <v-icon>mdi-magnify</v-icon>
   </v-btn>
 </template>
 

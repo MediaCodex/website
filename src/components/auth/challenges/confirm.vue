@@ -5,7 +5,7 @@
       name="code"
       autocomplete="code"
       :label="$t('auth.confirmCode')"
-      prepend-icon="check-double"
+      prepend-icon="mdi-check-double"
       type="text"
       class="mb-5"
       required

@@ -5,7 +5,7 @@
       <!-- navigation -->
       <v-col align-self="end">
         <v-btn icon nuxt exact to="/anime">
-          <v-icon dark>arrow_back</v-icon>
+          <v-icon dark>mdi-arrow-left</v-icon>
         </v-btn>
       </v-col>
 
@@ -19,10 +19,10 @@
       <!-- actions -->
       <v-col align="right" justify="end" align-self="end">
         <v-btn icon class="mr-1" @click="refresh">
-          <v-icon dark>refresh</v-icon>
+          <v-icon dark>mdi-refresh</v-icon>
         </v-btn>
         <v-btn icon color="error darken" @click="clear">
-          <v-icon dark>clear</v-icon>
+          <v-icon dark>mdi-close</v-icon>
         </v-btn>
       </v-col>
     </v-row>

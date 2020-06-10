@@ -21,8 +21,8 @@
 
       <!-- tabs -->
       <v-tabs v-model="tab" slider-size="4" grow>
-        <v-tab key="date"><v-icon>event</v-icon></v-tab>
-        <v-tab key="time"><v-icon>query_builder</v-icon></v-tab>
+        <v-tab key="date"><v-icon>mdi-calendar</v-icon></v-tab>
+        <v-tab key="time"><v-icon>mdi-clock</v-icon></v-tab>
       </v-tabs>
 
       <!-- pickers -->

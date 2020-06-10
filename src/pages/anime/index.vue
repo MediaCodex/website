@@ -10,7 +10,7 @@
           <v-card-title>
             <v-spacer />
             <v-btn icon color="primary" nuxt exact to="/anime/create">
-              <v-icon dark>add</v-icon>
+              <v-icon dark>mdi-plus</v-icon>
             </v-btn>
           </v-card-title>
           <v-card-text>Not implemented</v-card-text>

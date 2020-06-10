@@ -5,7 +5,7 @@
       name="new-password"
       autocomplete="new-password"
       :label="$t('auth.password')"
-      prepend-icon="password"
+      prepend-icon="mdi-password"
       type="password"
       class="mb-5"
       required
@@ -15,7 +15,7 @@
       name="confirm-password"
       autocomplete="confirm-password"
       :label="$t('auth.passwordConfirm')"
-      prepend-icon="lock"
+      prepend-icon="mdi-lock"
       type="password"
       required
     />

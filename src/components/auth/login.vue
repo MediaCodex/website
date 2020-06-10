@@ -5,7 +5,7 @@
       name="username"
       autocomplete="username"
       :label="$t('auth.usernameOrEmail')"
-      prepend-icon="email"
+      prepend-icon="mdi-email"
       type="email"
       required
     />
@@ -14,7 +14,7 @@
       name="password"
       autocomplete="password"
       :label="$t('auth.password')"
-      prepend-icon="lock"
+      prepend-icon="mdi-lock"
       type="password"
       required
     />

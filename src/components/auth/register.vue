@@ -5,7 +5,7 @@
       name="username"
       autocomplete="username"
       :label="$t('auth.username')"
-      prepend-icon="face"
+      prepend-icon="mdi-face"
       type="text"
     />
     <v-text-field
@@ -13,7 +13,7 @@
       name="email"
       autocomplete="email"
       :label="$t('auth.email')"
-      prepend-icon="email"
+      prepend-icon="mdi-email"
       type="email"
     />
     <v-text-field
@@ -21,7 +21,7 @@
       name="new-password"
       autocomplete="new-password"
       :label="$t('auth.password')"
-      prepend-icon="lock"
+      prepend-icon="mdi-lock"
       type="password"
     >
     </v-text-field>
@@ -30,7 +30,7 @@
       name="confirm-password"
       autocomplete="confirm-password"
       :label="$t('auth.passwordConfirm')"
-      prepend-icon="lock"
+      prepend-icon="mdi-lock"
       type="password"
     />
     <v-btn

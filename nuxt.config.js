@@ -80,7 +80,7 @@ export default {
 
   vuetify: {
     defaultAssets: {
-      icons: 'md'
+      icons: 'mdi'
     },
     customVariables: ['~/assets/variables.scss'],
     treeShake: true
