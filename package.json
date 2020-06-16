@@ -23,7 +23,6 @@
   "dependencies": {
     "@aws-amplify/auth": "^2.1.5",
     "@hapi/joi": "^17.1.0",
-    "@mdi/font": "^4.9.95",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
@@ -34,7 +33,7 @@
     "nuxt-i18n": "^6.5.0"
   },
   "devDependencies": {
-    "@mdi/js": "^5.3.45",
+    "@mdi/font": "^4.9.95",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",

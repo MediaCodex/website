@@ -79,11 +79,10 @@ export default {
   },
 
   vuetify: {
-    defaultAssets: {
-      icons: 'mdi'
-    },
+    defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
-    treeShake: true
+    treeShake: true,
+    optionsPath: './vuetify.config.js'
   },
 
   /**
