@@ -1,24 +1,4 @@
 import Auth from '@aws-amplify/auth'
-import { Hub } from '@aws-amplify/core'
-
-Hub.listen('auth', ({ payload: { event, data } }) => {
-  switch (event) {
-    case 'signIn':
-      console.log('HUB SIGN IN')
-      console.log(data)
-      break
-    case 'signOut':
-      console.log('HUB SIGN OUT')
-      break
-    case 'customOAuthState':
-      console.log('HUB CUSTOM OAUTH')
-      console.log(data)
-      break
-    default:
-      console.log(`HUB DEFAULT: ${event}`)
-      console.log(data)
-  }
-})
 
 Auth.configure({
   // REQUIRED - Amazon Cognito Region

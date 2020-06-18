@@ -114,16 +114,6 @@ export const actions = {
       commit('authenticated', false)
     }
   }
-  // async social({ commit }, provider) {
-  //   await Auth.federatedSignIn({ provider })
-  // },
-  // async oauthCallback({ commit }, url) {
-  //   await axios.post(`${baseUrl}/oauth2/token`, {
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     }
-  //   })
-  // }
 }
 
 export const getters = {

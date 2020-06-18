@@ -18,29 +18,8 @@ import Auth from '@aws-amplify/auth'
 export default {
   name: 'Social',
   methods: {
-    // facebook() {
-    //   const formData = {
-    //     response_type: 'code',
-    //     client_id: process.env.AMPLIFY_AUTH_CLIENT_ID,
-    //     redirect_uri: 'http://localhost:3000/oauth2'
-    //   }
-
-    //   const params = Object.keys(formData)
-    //     .map(
-    //       (key) =>
-    //         `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`
-    //     )
-    //     .join('&')
-
-    //   const cognitoDomain = 'mediacodex-dev.auth.eu-central-1.amazoncognito.com'
-    //   window.location.href = `https://${cognitoDomain}/oauth2/authorize?${params}`
-    // },
-    facebook() {
-      Auth.federatedSignIn({ provider: 'Facebook' })
-    },
-    google() {
-      Auth.federatedSignIn({ provider: 'Google' })
-    }
+    facebook: () => Auth.federatedSignIn({ provider: 'Facebook' }),
+    google: () => Auth.federatedSignIn({ provider: 'Google' })
   }
 }
 </script>
