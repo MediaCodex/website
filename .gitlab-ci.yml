@@ -100,6 +100,7 @@ getenv_prod:
     - .getenv
   environment:
     name: production
+  allow_failure: true
 
 build_prod:
   extends: .build
