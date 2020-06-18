@@ -12,9 +12,9 @@ Auth.configure({
 
   oauth: {
     domain: 'mediacodex-dev.auth.eu-central-1.amazoncognito.com',
-    // scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-    redirectSignIn: 'http://localhost:3000/oauth2',
-    redirectSignOut: 'http://localhost:3000/oauth2',
+    // scope: ['phone', 'email', 'profile', 'openid', `'aws.cognito.signin.user.admin'],
+    redirectSignIn: `${process.env.DOMAIN_NAME}/oauth2`,
+    redirectSignOut: `${process.env.DOMAIN_NAME}/oauth2`,
     responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
   }
 })
