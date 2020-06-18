@@ -1,4 +1,24 @@
 import Auth from '@aws-amplify/auth'
+import { Hub } from '@aws-amplify/core'
+
+Hub.listen('auth', ({ payload: { event, data } }) => {
+  switch (event) {
+    case 'signIn':
+      console.log('HUB SIGN IN')
+      console.log(data)
+      break
+    case 'signOut':
+      console.log('HUB SIGN OUT')
+      break
+    case 'customOAuthState':
+      console.log('HUB CUSTOM OAUTH')
+      console.log(data)
+      break
+    default:
+      console.log(`HUB DEFAULT: ${event}`)
+      console.log(data)
+  }
+})
 
 Auth.configure({
   // REQUIRED - Amazon Cognito Region
@@ -8,23 +28,13 @@ Auth.configure({
   userPoolId: process.env.AMPLIFY_AUTH_POOL_ID,
 
   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-  userPoolWebClientId: process.env.AMPLIFY_AUTH_CLIENT_ID
+  userPoolWebClientId: process.env.AMPLIFY_AUTH_CLIENT_ID,
 
-  // OPTIONAL - Configuration for cookie storage
-  // Note: if the secure flag is set to true, then the cookie transmission requires a secure protocol
-  // cookieStorage: {
-  //   // REQUIRED - Cookie domain (only required if cookieStorage is provided)
-  //   domain: 'localhost',
-  //   // OPTIONAL - Cookie path
-  //   // path: '/',
-  //   // OPTIONAL - Cookie expiration in days
-  //   // expires: 365,
-  //   // OPTIONAL - Cookie secure flag
-  //   // Either true or false, indicating if the cookie transmission requires a secure protocol (https).
-  //   secure: false
-  // }
-  // storage: new CookieStorage(),
-
-  // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-  // authenticationFlowType: 'USER_PASSWORD_AUTH'
+  oauth: {
+    domain: 'mediacodex-dev.auth.eu-central-1.amazoncognito.com',
+    // scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+    redirectSignIn: 'http://localhost:3000/oauth2',
+    redirectSignOut: 'http://localhost:3000/oauth2',
+    responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
+  }
 })
