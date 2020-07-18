@@ -22,29 +22,62 @@ resource "aws_s3_bucket" "default" {
   tags = var.default_tags
 }
 
-resource "aws_s3_bucket_policy" "cloudfront" {
-  bucket = aws_s3_bucket.default.id
-  policy = data.aws_iam_policy_document.cloudfront.json
+/*
+ * Public Access
+ */
+resource "aws_s3_bucket_public_access_block" "default" {
+  bucket                  = aws_s3_bucket.default.id
+  block_public_acls       = false
+  ignore_public_acls      = false
+  block_public_policy     = false
+  restrict_public_buckets = false
 }
 
-data "aws_iam_policy_document" "cloudfront" {
+/*
+ * Access policy
+ */
+resource "aws_s3_bucket_policy" "default" {
+  depends_on = [aws_s3_bucket.default]
+  bucket     = aws_s3_bucket.default.id
+  policy     = data.aws_iam_policy_document.public_access.json
+}
+data "aws_iam_policy_document" "public_access" {
   statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.default.arn}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.default.iam_arn}"]
-    }
-  }
-
-  statement {
-    actions   = ["s3:ListBucket"]
-    resources = [aws_s3_bucket.default.arn]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["${aws_cloudfront_origin_access_identity.default.iam_arn}"]
-    }
   }
 }
+
+/*
+ * Cloudfront
+ */
+# resource "aws_s3_bucket_policy" "cloudfront" {
+#   bucket = aws_s3_bucket.default.id
+#   policy = data.aws_iam_policy_document.cloudfront.json
+# }
+
+# data "aws_iam_policy_document" "cloudfront" {
+#   statement {
+#     actions   = ["s3:GetObject"]
+#     resources = ["${aws_s3_bucket.default.arn}/*"]
+
+#     principals {
+#       type        = "AWS"
+#       identifiers = ["${aws_cloudfront_origin_access_identity.default.iam_arn}"]
+#     }
+#   }
+
+#   statement {
+#     actions   = ["s3:ListBucket"]
+#     resources = [aws_s3_bucket.default.arn]
+
+#     principals {
+#       type        = "AWS"
+#       identifiers = ["${aws_cloudfront_origin_access_identity.default.iam_arn}"]
+#     }
+#   }
+# }
