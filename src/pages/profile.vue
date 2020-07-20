@@ -38,7 +38,7 @@
                     type="text"
                     outlined
                     required
-                    counter="50"
+                    counter="20"
                   />
                 </v-form>
               </v-col>

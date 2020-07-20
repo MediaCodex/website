@@ -6,11 +6,8 @@ export default {
   registerTitle: 'Register with email',
   registerMessage: 'No account?',
   resetPassword: 'Reset password',
-  passwordChallenge: 'Change password',
-  confirmChallenge: 'Confirm Email',
-  usernameOrEmail: 'Username/email',
   email: 'Email',
-  username: 'Username',
+  emailConfirm: 'Comfirm Email',
   password: 'Password',
   passwordConfirm: 'Confirm Password',
   confirmCode: 'Confirmation code',
@@ -18,5 +15,11 @@ export default {
   social: {
     facebook: 'Login with Facebook',
     google: 'Login with Google'
+  },
+  errors: {
+    'email-already-in-use': 'Email address is already in use',
+    'invalid-email': 'Email address is not valid',
+    'operation-not-allowed': 'Operation no permitted',
+    'weak-password': 'Password is not strong enough'
   }
 }
