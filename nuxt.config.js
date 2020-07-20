@@ -1,3 +1,4 @@
+import firebaseConfig from './firebase.config'
 export default {
   mode: 'spa',
   srcDir: 'src/',
@@ -96,15 +97,7 @@ export default {
    * @see{@link https://firebase.nuxtjs.org/guide/options/#config}
    */
   firebase: {
-    config: {
-      apiKey: 'AIzaSyCzCFNDDxxGvBg214ibaG8VWVRwPNjWopk',
-      authDomain: 'test-837c4.firebaseapp.com',
-      databaseURL: 'https://test-837c4.firebaseio.com',
-      projectId: 'test-837c4',
-      storageBucket: 'test-837c4.appspot.com',
-      messagingSenderId: '807257237848',
-      appId: '1:807257237848:web:4b46c1c593b1720a115d2d'
-    },
+    config: firebaseConfig,
     services: {
       auth: {
         initialize: {
@@ -128,6 +121,7 @@ export default {
    * @see{@link https://nuxtjs.org/api/configuration-env}
    */
   env: {
-    DOMAIN_NAME: process.env.DOMAIN_NAME
+    DOMAIN_NAME: process.env.DOMAIN_NAME,
+    FIRE_ENV: process.env.FIRE_ENV
   }
 }
