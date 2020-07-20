@@ -1,13 +1,12 @@
 <template>
   <!-- Avatar -->
-  <v-menu v-if="$store.state.auth.isLoggedIn" offset-y>
+  <v-menu v-if="isLoggedIn" offset-y>
     <template v-slot:activator="{ on }">
       <v-btn color="primary" dark icon size="32" v-on="on">
-        <v-avatar size="32">
-          <img
-            src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
-          />
+        <v-avatar v-if="avatar" size="32">
+          <img :src="photoUrl" />
         </v-avatar>
+        <v-icon v-else size="32" color="white">mdi-account</v-icon>
       </v-btn>
     </template>
     <v-list>
@@ -27,6 +26,14 @@ export default {
   name: 'NavProfile',
   components: {
     Auth
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['auth/isLoggedIn']
+    },
+    avatar() {
+      return this.$store.getters['auth/user'].photoUrl
+    }
   }
 }
 </script>

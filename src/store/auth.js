@@ -15,7 +15,8 @@ export const mutations = {
   user: (state, authUser) => {
     state.user = {
       uid: authUser.uid,
-      email: authUser.email
+      displayName: authUser.displayName,
+      photoUrl: authUser.photoUrl
     }
   },
 
@@ -71,5 +72,9 @@ export const getters = {
     } catch {
       return false
     }
+  },
+
+  user: (state) => {
+    return state.user || {}
   }
 }
