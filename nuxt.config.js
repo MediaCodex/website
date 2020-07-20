@@ -33,7 +33,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/amplify-auth', mode: 'client' }],
+  plugins: [],
 
   /**
    * Nuxt.js dev-modules
@@ -53,7 +53,13 @@ export default {
    * @see{@link https://axios.nuxtjs.org/usage Axios Module}
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/dotenv', 'nuxt-i18n'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv',
+    'nuxt-i18n',
+    '@nuxtjs/firebase'
+  ],
 
   /**
    * Axios module configuration
@@ -86,6 +92,29 @@ export default {
   },
 
   /**
+   * Firebase config
+   * @see{@link https://firebase.nuxtjs.org/guide/options/#config}
+   */
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyCzCFNDDxxGvBg214ibaG8VWVRwPNjWopk',
+      authDomain: 'test-837c4.firebaseapp.com',
+      databaseURL: 'https://test-837c4.firebaseio.com',
+      projectId: 'test-837c4',
+      storageBucket: 'test-837c4.appspot.com',
+      messagingSenderId: '807257237848',
+      appId: '1:807257237848:web:4b46c1c593b1720a115d2d'
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'auth/onAuthStateChanged'
+        }
+      }
+    }
+  },
+
+  /**
    * Build configuration
    */
   build: {
@@ -99,9 +128,6 @@ export default {
    * @see{@link https://nuxtjs.org/api/configuration-env}
    */
   env: {
-    DOMAIN_NAME: process.env.DOMAIN_NAME,
-    AMPLIFY_AUTH_REGION: process.env.AMPLIFY_AUTH_REGION,
-    AMPLIFY_AUTH_POOL_ID: process.env.AMPLIFY_AUTH_POOL_ID,
-    AMPLIFY_AUTH_CLIENT_ID: process.env.AMPLIFY_AUTH_CLIENT_ID
+    DOMAIN_NAME: process.env.DOMAIN_NAME
   }
 }

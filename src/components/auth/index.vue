@@ -39,10 +39,10 @@
               v-if="mode === 'passwordChallenge'"
               key="challengePass"
             >
-              <challenge-password
+              <!-- <challenge-password
                 @error="error = $event"
                 @success="challenge"
-              />
+              /> -->
             </v-card-text>
 
             <!-- Confirmation code -->
@@ -50,7 +50,7 @@
               v-if="mode === 'confirmChallenge'"
               key="challengeConfirm"
             >
-              <challenge-confirm @error="error = $event" @success="challenge" />
+              <!-- <challenge-confirm @error="error = $event" @success="challenge" /> -->
             </v-card-text>
           </v-fade-transition>
 
@@ -85,16 +85,12 @@
 import Login from './login'
 import Register from './register'
 import Social from './social'
-import ChallengePassword from './challenges/password'
-import ChallengeConfirm from './challenges/confirm'
 export default {
   name: 'Auth',
   components: {
     Login,
     Register,
-    Social,
-    ChallengePassword,
-    ChallengeConfirm
+    Social
   },
   data() {
     return {
@@ -110,11 +106,11 @@ export default {
   },
   methods: {
     challenge() {
-      const challenge = this.$store.getters['auth/challenge']
-      if (challenge === null && this.$store.state.auth.authenticated) {
-        this.show = false
-      }
-      this.mode = `${challenge.type}Challenge`
+      // const challenge = this.$store.getters['auth/challenge']
+      // if (challenge === null && this.$store.state.auth.authenticated) {
+      //   this.show = false
+      // }
+      // this.mode = `${challenge.type}Challenge`
     }
   }
 }

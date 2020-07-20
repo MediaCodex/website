@@ -69,7 +69,8 @@ export default {
           email: this.email,
           password: this.password
         }
-        await this.$store.dispatch('auth/signup', data)
+        await console.log(data)
+        // await this.$store.dispatch('auth/signup', data)
         this.$emit('success')
       } catch (error) {
         this.$emit('error', error.message)

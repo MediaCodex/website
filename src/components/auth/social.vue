@@ -14,12 +14,11 @@
 </template>
 
 <script>
-import Auth from '@aws-amplify/auth'
 export default {
   name: 'Social',
   methods: {
-    facebook: () => Auth.federatedSignIn({ provider: 'Facebook' }),
-    google: () => Auth.federatedSignIn({ provider: 'Google' })
+    facebook: () => 'facebook',
+    google: () => 'google'
   }
 }
 </script>

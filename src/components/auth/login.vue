@@ -47,8 +47,10 @@ export default {
       this.loading = true
 
       try {
-        const data = { email: this.username, password: this.password }
-        await this.$store.dispatch('auth/signin', data)
+        await this.$fireAuth.signInWithEmailAndPassword(
+          this.username,
+          this.password
+        )
         this.$emit('success')
       } catch (error) {
         this.$emit('error', error.message)

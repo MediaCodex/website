@@ -21,15 +21,15 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/auth": "^3.2.13",
-    "@aws-amplify/core": "^3.4.0",
     "@hapi/joi": "^17.1.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/firebase": "^6.1.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/vuetify": "^1.11.0",
     "axios": "^0.19.2",
     "change-case": "^4.1.1",
+    "firebase": "^7.16.1",
     "moment-timezone": "^0.5.28",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.5.0"

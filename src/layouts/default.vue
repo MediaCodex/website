@@ -39,7 +39,7 @@ export default {
     Profile,
     Settings
   },
-  middleware: ['auth'],
+  middleware: [],
   data: () => ({
     drawer: true
   }),
