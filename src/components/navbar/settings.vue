@@ -2,7 +2,7 @@
   <v-menu offset-y :close-on-content-click="false">
     <template v-slot:activator="{ on }">
       <v-btn dark icon size="32" v-on="on">
-        <v-icon>mdi-cog</v-icon>
+        <v-icon>mdi-cogs</v-icon>
       </v-btn>
     </template>
     <v-list>
