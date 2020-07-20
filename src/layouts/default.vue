@@ -14,7 +14,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <search />
-        <settings />
+        <settings-button v-if="!isLoggedIn" />
         <profile />
       </v-app-bar>
 
@@ -31,18 +31,23 @@ import Meta from '~/assets/js/meta'
 import Search from '~/components/navbar/search'
 import Routes from '~/components/navbar/routes'
 import Profile from '~/components/navbar/profile'
-import Settings from '~/components/navbar/settings'
+import SettingsButton from '~/components/navbar/settingsButton'
 export default {
   components: {
     Search,
     Routes,
     Profile,
-    Settings
+    SettingsButton
   },
   middleware: [],
   data: () => ({
     drawer: true
   }),
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['auth/isLoggedIn']
+    }
+  },
   head() {
     const i18nSeo = this.$nuxtI18nSeo()
     return {
