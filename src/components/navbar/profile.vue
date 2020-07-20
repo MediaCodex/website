@@ -9,10 +9,14 @@
         <v-icon v-else size="32" color="white">mdi-account</v-icon>
       </v-btn>
     </template>
-    <v-list>
-      <v-list-item>
-        <v-list-item-title>{{ $t('navbar.logout') }}</v-list-item-title>
-      </v-list-item>
+    <v-list width="200">
+      <!-- Settings -->
+      <settings />
+      <v-divider />
+      <!-- Actions -->
+      <v-list-item-group>
+        <logout />
+      </v-list-item-group>
     </v-list>
   </v-menu>
 
@@ -22,11 +26,11 @@
 
 <script>
 import Auth from '../auth'
+import Logout from '../auth/logout'
+import Settings from './settings'
 export default {
   name: 'NavProfile',
-  components: {
-    Auth
-  },
+  components: { Auth, Logout, Settings },
   computed: {
     isLoggedIn() {
       return this.$store.getters['auth/isLoggedIn']
