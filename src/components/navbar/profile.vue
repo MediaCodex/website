@@ -3,20 +3,22 @@
   <v-menu v-if="isLoggedIn" offset-y>
     <template v-slot:activator="{ on }">
       <v-btn color="primary" dark icon size="32" v-on="on">
-        <v-avatar v-if="avatar" size="32">
-          <img :src="photoUrl" />
+        <v-avatar v-if="user.photoUrl" size="32">
+          <img :src="user.photoUrl" />
         </v-avatar>
         <v-icon v-else size="32" color="white">mdi-account</v-icon>
       </v-btn>
     </template>
-    <v-list width="200">
-      <!-- Settings -->
+    <v-list width="230">
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title v-text="user.displayName" />
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider />
       <settings />
       <v-divider />
-      <!-- Actions -->
-      <v-list-item-group>
-        <logout />
-      </v-list-item-group>
+      <actions />
     </v-list>
   </v-menu>
 
@@ -26,17 +28,18 @@
 
 <script>
 import Auth from '../auth'
-import Logout from '../auth/logout'
+import Actions from './actions/index'
 import Settings from './settings'
 export default {
   name: 'NavProfile',
-  components: { Auth, Logout, Settings },
+  middleware: 'auth',
+  components: { Auth, Actions, Settings },
   computed: {
     isLoggedIn() {
       return this.$store.getters['auth/isLoggedIn']
     },
-    avatar() {
-      return this.$store.getters['auth/user'].photoUrl
+    user() {
+      return this.$store.getters['auth/user']
     }
   }
 }
