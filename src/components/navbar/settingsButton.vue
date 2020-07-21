@@ -5,7 +5,7 @@
         <v-icon>mdi-cogs</v-icon>
       </v-btn>
     </template>
-    <v-list>
+    <v-list width="230">
       <settings />
     </v-list>
   </v-menu>
