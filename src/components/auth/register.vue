@@ -1,6 +1,14 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
+      v-model="displayName"
+      name="displayName"
+      autocomplete="name"
+      :label="$t('auth.displayName')"
+      prepend-icon="mdi-profile"
+      type="text"
+    />
+    <v-text-field
       v-model="email"
       name="email"
       autocomplete="email"
@@ -50,6 +58,7 @@ export default {
   data: () => ({
     loading: false,
     valid: false,
+    displayName: null,
     email: null,
     emailConfirm: null,
     password: null,
@@ -66,6 +75,9 @@ export default {
           this.email,
           this.password
         )
+        await this.$fireAuth.currentUser.updateProfile({
+          displayName: this.displayName
+        })
         this.$emit('success')
       } catch (error) {
         console.error(error.message)
