@@ -1,51 +1,35 @@
 <template>
   <div>
-    <v-btn
-      color="#3b5998"
-      dark
-      block
-      width="55"
-      :loading="loading"
+    <icon-btn
+      btn-class="mb-3"
+      btn-color="#3b5998"
+      icon="mdi-facebook"
+      :text="$t('auth.social.facebook')"
       @click="facebook"
-    >
-      <v-icon class="mr-2" width="20" height="20">mdi-facebook</v-icon>
-      {{ $t('auth.social.facebook') }}
-    </v-btn>
-    <v-btn
-      color="#4285F4"
-      dark
-      block
-      class="mt-3"
-      width="55"
-      :loading="loading"
+    />
+    <icon-btn
+      btn-class="mb-3"
+      btn-color="#4285F4"
+      icon="mdi-google-plus"
+      icon-color="#db4a39"
+      :text="$t('auth.social.google')"
       @click="google"
-    >
-      <v-icon class="mr-2" color="#db4a39" width="20" height="20">
-        mdi-google-plus
-      </v-icon>
-      {{ $t('auth.social.google') }}
-    </v-btn>
-    <v-btn
-      color="#1DA1F2"
-      dark
-      block
-      class="mt-3"
-      width="55"
-      :loading="loading"
+    />
+    <icon-btn
+      btn-color="#1DA1F2"
+      icon="mdi-twitter"
+      :text="$t('auth.social.twitter')"
       @click="twitter"
-    >
-      <v-icon class="mr-2" width="20" height="20">
-        mdi-twitter
-      </v-icon>
-      {{ $t('auth.social.twitter') }}
-    </v-btn>
+    />
   </div>
 </template>
 
 <script>
 import firebase from 'firebase'
+import IconBtn from '..//iconButton'
 export default {
   name: 'Social',
+  components: { IconBtn },
   data: () => ({
     loading: false
   }),

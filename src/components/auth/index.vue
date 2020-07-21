@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" width="800">
+  <v-dialog v-model="show" width="900">
     <template v-slot:activator="{ on }">
       <v-btn text class="text-none underscore" v-on="on">
         {{ $t('navbar.login') }}
@@ -8,7 +8,7 @@
     <v-card>
       <v-row no-gutters>
         <!-- social auth -->
-        <v-col class="py-0" cols="12" md="4">
+        <v-col class="py-0" cols="12" md="5">
           <v-card-title class="headline primary" primary-title>
             {{ $t(`auth.socialTitle`) }}
           </v-card-title>
@@ -18,7 +18,7 @@
         </v-col>
 
         <!-- email auth -->
-        <v-col class="py-0" cols="12" md="8">
+        <v-col class="py-0" cols="12" md="7">
           <v-card-title class="headline primary" primary-title>
             {{ $t(`auth.${mode}Title`) }}
           </v-card-title>

@@ -45,9 +45,33 @@
 
               <!-- dates -->
               <v-col cols="12" md="6">
-                <v-form>
-                  <h1>nothing here... yet</h1>
-                </v-form>
+                <!-- facebook -->
+                <icon-btn
+                  btn-class="mb-3"
+                  btn-color="#3b5998"
+                  icon="mdi-facebook"
+                  :text="getUsername('facebook.com', 'profile.social.facebook')"
+                  :disabled="providers.includes('facebook.com')"
+                  @click="linkSocial('facebook')"
+                />
+                <!-- google -->
+                <icon-btn
+                  btn-class="mb-3"
+                  btn-color="#4285F4"
+                  icon="mdi-google-plus"
+                  icon-color="#db4a39"
+                  :text="getUsername('google.com', 'profile.social.google')"
+                  :disabled="providers.includes('google.com')"
+                  @click="linkSocial('google')"
+                />
+                <!-- twitter -->
+                <icon-btn
+                  btn-color="#1DA1F2"
+                  icon="mdi-twitter"
+                  :text="getUsername('twitter.com', 'profile.social.twitter')"
+                  :disabled="providers.includes('twitter.com')"
+                  @click="linkSocial('twitter')"
+                />
               </v-col>
             </v-row>
 
@@ -67,12 +91,21 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import IconBtn from '~/components/iconButton'
 export default {
+  components: { IconBtn },
   middleware: ['auth'],
   data: () => ({
     displayName: '',
     submitting: false
   }),
+  computed: {
+    providers() {
+      const providers = this.$fireAuth.currentUser.providerData
+      return providers.map((provider) => provider.providerId)
+    }
+  },
   mounted() {
     const { displayName } = this.$fireAuth.currentUser
     this.displayName = displayName
@@ -94,6 +127,26 @@ export default {
     },
     async refresh() {
       this.data = await this.$fireAuth.currentUser
+    },
+    async linkSocial(provider) {
+      const providers = {
+        google: firebase.auth.GoogleAuthProvider,
+        twitter: firebase.auth.TwitterAuthProvider,
+        facebook: firebase.auth.FacebookAuthProvider
+      }
+      await this.$fireAuth.currentUser.linkWithPopup(new providers[provider]())
+    },
+    getUsername(providerId, fallback) {
+      const providers = this.$fireAuth.currentUser.providerData
+      const provider = providers.find(
+        (provider) => provider.providerId === providerId
+      )
+
+      if (provider) {
+        return provider.displayName
+      }
+
+      return this.$t(fallback)
     }
   }
 }
