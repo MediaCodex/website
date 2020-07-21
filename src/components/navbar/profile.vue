@@ -12,7 +12,9 @@
     <v-list width="230">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title v-text="user.displayName" />
+          <v-list-item-title class="text-center">
+            @{{ user.displayName }}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider />
