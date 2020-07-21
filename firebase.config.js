@@ -6,6 +6,7 @@ export default {
     projectId: 'mediacodex-dev',
     storageBucket: 'mediacodex-dev.appspot.com',
     messagingSenderId: '188045418046',
-    appId: '1:188045418046:web:9a03e7a9767e9ac9aabb6f'
+    appId: '1:188045418046:web:9a03e7a9767e9ac9aabb6f',
+    measurementId: 'G-CKXHF04C9L'
   }
 }

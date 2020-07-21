@@ -103,7 +103,8 @@ export default {
         initialize: {
           onAuthStateChangedAction: 'auth/onAuthStateChanged'
         }
-      }
+      },
+      analytics: true
     }
   },
 
