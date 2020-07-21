@@ -4,8 +4,8 @@
       v-model="displayName"
       name="displayName"
       autocomplete="name"
-      :label="$t('auth.displayName')"
-      prepend-icon="mdi-profile"
+      :label="$t('profile.displayName')"
+      prepend-icon="mdi-account"
       type="text"
     />
     <v-text-field
