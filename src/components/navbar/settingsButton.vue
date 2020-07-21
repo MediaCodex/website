@@ -14,7 +14,7 @@
 <script>
 import Settings from './settings'
 export default {
-  name: 'Settings',
+  name: 'SettingsButton',
   components: { Settings }
 }
 </script>
