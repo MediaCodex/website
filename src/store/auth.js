@@ -62,6 +62,17 @@ export const actions = {
 
     const token = await firebase.auth().currentUser.getIdToken()
     commit('idToken', token)
+  },
+
+  async updateProfile({ state, commit }, profile) {
+    if (!state.user || typeof profile !== 'object') return
+
+    // update firebase
+    await firebase.auth().currentUser.updateProfile(profile)
+
+    // update state
+    const user = { ...state.user, ...profile }
+    commit('user', user)
   }
 }
 

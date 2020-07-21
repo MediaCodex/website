@@ -54,7 +54,7 @@
             <!-- submit -->
             <v-row>
               <v-col>
-                <v-btn primary :loading="submitting" @click="submit">
+                <v-btn color="primary" :loading="submitting" @click="submit">
                   {{ $t('submit') }}
                 </v-btn>
               </v-col>
@@ -79,11 +79,12 @@ export default {
   },
   methods: {
     async submit() {
-      // TODO: add proper error/success handling
       this.submitting = true
-      await this.$fireAuth.currentUser.updateProfile({
+
+      await this.$store.dispatch('auth/updateProfile', {
         displayName: this.displayName
       })
+
       this.submitting = false
     },
     clear() {

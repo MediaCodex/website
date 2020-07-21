@@ -75,7 +75,7 @@ export default {
           this.email,
           this.password
         )
-        await this.$fireAuth.currentUser.updateProfile({
+        await this.$store.dispatch('auth/updateProfile', {
           displayName: this.displayName
         })
         this.$emit('success')
