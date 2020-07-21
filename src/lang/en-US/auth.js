@@ -14,7 +14,8 @@ export default {
   socialTitle: 'Login using social',
   social: {
     facebook: 'Login with Facebook',
-    google: 'Login with Google'
+    google: 'Login with Google',
+    twitter: 'Login with Twitter'
   },
   errors: {
     'email-already-in-use': 'Email address is already in use',
