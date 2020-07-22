@@ -1,10 +1,10 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
-      v-model="username"
-      name="username"
-      autocomplete="username"
-      :label="$t('auth.usernameOrEmail')"
+      v-model="email"
+      name="email"
+      autocomplete="email"
+      :label="$t('auth.email')"
       prepend-icon="mdi-email"
       type="email"
       required
@@ -37,7 +37,7 @@ export default {
     return {
       loading: false,
       valid: false,
-      username: null,
+      email: null,
       password: null
     }
   },
@@ -47,8 +47,10 @@ export default {
       this.loading = true
 
       try {
-        const data = { email: this.username, password: this.password }
-        await this.$store.dispatch('auth/signin', data)
+        await this.$fireAuth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        )
         this.$emit('success')
       } catch (error) {
         this.$emit('error', error.message)

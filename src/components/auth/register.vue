@@ -1,11 +1,11 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
-      v-model="username"
-      name="username"
-      autocomplete="username"
-      :label="$t('auth.username')"
-      prepend-icon="mdi-face"
+      v-model="displayName"
+      name="displayName"
+      autocomplete="name"
+      :label="$t('profile.displayName')"
+      prepend-icon="mdi-account"
       type="text"
     />
     <v-text-field
@@ -17,14 +17,21 @@
       type="email"
     />
     <v-text-field
+      v-model="emailConfirm"
+      name="confirm-email"
+      autocomplete="confirm-email"
+      :label="$t('auth.emailConfirm')"
+      prepend-icon="mdi-email"
+      type="email"
+    />
+    <v-text-field
       v-model="password"
       name="new-password"
       autocomplete="new-password"
       :label="$t('auth.password')"
       prepend-icon="mdi-lock"
       type="password"
-    >
-    </v-text-field>
+    />
     <v-text-field
       v-model="passwordConfirm"
       name="confirm-password"
@@ -48,31 +55,35 @@
 <script>
 export default {
   name: 'Register',
-  data() {
-    return {
-      loading: false,
-      valid: false,
-      username: null,
-      email: null,
-      password: null,
-      passwordConfirm: null
-    }
-  },
+  data: () => ({
+    loading: false,
+    valid: false,
+    displayName: null,
+    email: null,
+    emailConfirm: null,
+    password: null,
+    passwordConfirm: null
+  }),
   methods: {
     async register() {
+      // TODO: validation
       if (!this.$refs.form.validate()) return
       this.loading = true
 
       try {
-        const data = {
-          username: this.username,
-          email: this.email,
-          password: this.password
-        }
-        await this.$store.dispatch('auth/signup', data)
+        await this.$fireAuth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        )
+        await this.$store.dispatch('auth/updateProfile', {
+          displayName: this.displayName
+        })
         this.$emit('success')
       } catch (error) {
-        this.$emit('error', error.message)
+        console.error(error.message)
+        const code = error.code.replace('auth/', '')
+        const message = this.$t(`auth.errors.${code}`)
+        this.$emit('error', message)
       }
 
       this.loading = false

@@ -1,19 +1,26 @@
 <template>
   <!-- Avatar -->
-  <v-menu v-if="$store.state.auth.authenticated" offset-y>
+  <v-menu v-if="isLoggedIn" offset-y>
     <template v-slot:activator="{ on }">
       <v-btn color="primary" dark icon size="32" v-on="on">
-        <v-avatar size="32">
-          <img
-            src="https://static-cdn.jtvnw.net/jtv_user_pictures/cd6701140ae14505-profile_image-70x70.png"
-          />
+        <v-avatar v-if="user.photoUrl" size="32">
+          <img :src="user.photoUrl" />
         </v-avatar>
+        <v-icon v-else size="32" color="white">mdi-account</v-icon>
       </v-btn>
     </template>
-    <v-list>
+    <v-list width="230">
       <v-list-item>
-        <v-list-item-title>{{ $t('navbar.logout') }}</v-list-item-title>
+        <v-list-item-content>
+          <v-list-item-title class="text-center">
+            @{{ user.displayName }}
+          </v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
+      <v-divider />
+      <settings />
+      <v-divider />
+      <actions />
     </v-list>
   </v-menu>
 
@@ -23,10 +30,19 @@
 
 <script>
 import Auth from '../auth'
+import Actions from './actions/index'
+import Settings from './settings'
 export default {
   name: 'NavProfile',
-  components: {
-    Auth
+  middleware: 'auth',
+  components: { Auth, Actions, Settings },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['auth/isLoggedIn']
+    },
+    user() {
+      return this.$store.getters['auth/user']
+    }
   }
 }
 </script>

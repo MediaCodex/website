@@ -1,6 +1,6 @@
 include:
   - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/sonarcloud.yml'
-  - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/terraform.yml'
+  # - remote: 'https://gitlab.com/mediacodex/infrastructure/-/raw/master/gitlab/terraform.yml'
 
 default:
   image: node:erbium

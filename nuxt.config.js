@@ -1,3 +1,4 @@
+import firebaseConfig from './firebase.config'
 export default {
   mode: 'spa',
   srcDir: 'src/',
@@ -7,15 +8,10 @@ export default {
    * Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'MediaCodex',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
@@ -33,7 +29,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/amplify-auth', mode: 'client' }],
+  plugins: ['~/plugins/axios'],
 
   /**
    * Nuxt.js dev-modules
@@ -42,8 +38,8 @@ export default {
    * @see{@link https://github.com/nuxt-community/stylelint-module Stylelint Module}
    */
   buildModules: [
-    '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'
   ],
 
@@ -53,13 +49,21 @@ export default {
    * @see{@link https://axios.nuxtjs.org/usage Axios Module}
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/dotenv', 'nuxt-i18n'],
+  modules: [
+    '@nuxtjs/firebase',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    'nuxt-i18n'
+  ],
 
   /**
    * Axios module configuration
    * @see{@link https://axios.nuxtjs.org/options}
    */
-  axios: {},
+  axios: {
+    baseURL: `https://api.mediacodex.dev/v1`
+  },
 
   /**
    * i18n Configuration
@@ -86,6 +90,22 @@ export default {
   },
 
   /**
+   * Firebase config
+   * @see{@link https://firebase.nuxtjs.org/guide/options/#config}
+   */
+  firebase: {
+    config: firebaseConfig,
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'auth/onAuthStateChanged'
+        }
+      },
+      analytics: true
+    }
+  },
+
+  /**
    * Build configuration
    */
   build: {
@@ -100,8 +120,6 @@ export default {
    */
   env: {
     DOMAIN_NAME: process.env.DOMAIN_NAME,
-    AMPLIFY_AUTH_REGION: process.env.AMPLIFY_AUTH_REGION,
-    AMPLIFY_AUTH_POOL_ID: process.env.AMPLIFY_AUTH_POOL_ID,
-    AMPLIFY_AUTH_CLIENT_ID: process.env.AMPLIFY_AUTH_CLIENT_ID
+    FIRE_ENV: process.env.FIRE_ENV
   }
 }

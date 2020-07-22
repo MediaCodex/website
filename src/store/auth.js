@@ -1,127 +1,109 @@
-import Auth from '@aws-amplify/auth'
+import firebase from 'firebase'
+import jwtDecode from 'jwt-decode'
 
 export const state = () => ({
-  authenticated: false,
-  challenge: false,
-  challengeAttributes: null,
-  user: null
+  user: null,
+  claims: null,
+  idToken: null
 })
+const initialState = state()
 
 export const mutations = {
-  updateUser(state, user) {
-    state.user = user
+  reset: (state) => {
+    Object.assign(state, initialState)
   },
-  authenticated(state, success = true) {
-    state.authenticated = success
-    state.challenge = false
-    state.challengeAttributes = null
-    state.user.challengeName = undefined
-    state.user.challengeParam = undefined
+
+  user: (state, authUser) => {
+    state.user = {
+      uid: authUser.uid,
+      displayName: authUser.displayName,
+      photoUrl: authUser.photoUrl
+    }
   },
-  challengeMfa(state, type) {
-    state.authenticated = false
-    state.challenge = 'mfa'
-    state.challengeAttributes = type
+
+  claims: (state, claims) => {
+    state.claims = claims
   },
-  challengePassword(state, attr) {
-    state.authenticated = false
-    state.challenge = 'password'
-    state.challengeAttributes = attr
-  },
-  challengeMfaSetup(state) {
-    state.authenticated = false
-    state.challenge = 'mfaSetup'
-  },
-  challengeConfirm(state) {
-    state.authenticated = false
-    state.challenge = 'confirm'
+
+  idToken: (state, idToken) => {
+    state.idToken = idToken
   }
 }
 
 export const actions = {
-  async signin({ commit }, { email, password }) {
-    const user = await Auth.signIn(email, password)
-    commit('updateUser', user)
-
-    // TODO: 'UserNotConfirmedException'
-    // TODO: 'PasswordResetRequiredException'
-
-    // MFA Code challenge
-    if (['SMS_MFA', 'SOFTWARE_TOKEN_MFA'].includes(user.challengeName)) {
-      commit('challengeMfa', user.challengeName)
-      return false
+  onAuthStateChanged({ commit, dispatch }, { authUser }) {
+    if (!authUser) {
+      commit('reset', null)
+      return
     }
 
-    // Change password challenge
-    else if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-      const { requiredAttributes } = user.challengeParam
-      commit('challengePassword', requiredAttributes)
-      return false
+    // user profile
+    commit('user', authUser)
+
+    // secondary updates
+    dispatch('refreshClaims')
+    dispatch('refreshToken')
+  },
+
+  async refreshClaims({ state, commit }) {
+    if (!state.user) {
+      commit('claims', null)
+      return
     }
 
-    // MFA setup
-    else if (user.challengeName === 'MFA_SETUP') {
-      commit('challengeMfaSetup')
-      return false
+    const tokenResult = await firebase.auth().currentUser.getIdTokenResult(true)
+    commit('claims', tokenResult.claims)
+  },
+
+  async refreshToken({ state, commit }) {
+    if (!state.user) {
+      commit('claims', null)
+      return
     }
 
-    commit('authenticated')
-    return true
+    const token = await firebase.auth().currentUser.getIdToken()
+    commit('idToken', token)
   },
-  async signup({ commit }, { username, email, password }) {
-    await Auth.signUp({
-      username,
-      password,
-      attributes: { email }
-    })
-    commit('updateUser', { username, email })
-    commit('challengeConfirm')
-  },
-  async confirmChallenge({ commit, state }, code) {
-    await Auth.confirmSignUp(state.user.username, code)
-    const user = await Auth.currentAuthenticatedUser()
-    commit('updateUser', user)
-    commit('authenticated')
-  },
-  async mfaChallenge({ commit, state }, code) {
-    const user = await Auth.confirmSignIn(
-      state.user, // object from login
-      state.challengeAttributes, // MFA type, e.g. SMS or TOTP
-      code // confirmation code
-    )
-    commit('updateUser', user)
-    commit('authenticated')
-  },
-  async passwordChallenge({ commit, state }, { password, email, phone }) {
-    const user = await Auth.completeNewPassword(
-      state.user, // object from login
-      password, // new password
-      { email, phone } // optional required attributes
-    )
-    commit('updateUser', user)
-    commit('authenticated')
-  },
-  async mfaSetupChallenge({ commit, state }, { password, email, phone }) {
-    // TODO
-  },
-  async fetchUser({ commit }) {
-    try {
-      const user = await Auth.currentAuthenticatedUser()
-      commit('updateUser', user)
-      commit('authenticated')
-    } catch (error) {
-      commit('user', null)
-      commit('authenticated', false)
-    }
+
+  async updateProfile({ state, commit }, profile) {
+    if (!state.user || typeof profile !== 'object') return
+
+    // update firebase
+    await firebase.auth().currentUser.updateProfile(profile)
+
+    // update state
+    const user = { ...state.user, ...profile }
+    commit('user', user)
   }
 }
 
 export const getters = {
-  challenge: (state) => {
-    if (state.authenticated || !state.challenge) return null
-    return {
-      type: state.challenge,
-      params: state.challengeAttributes
+  isLoggedIn: (state) => {
+    try {
+      return state.user.id !== null
+    } catch {
+      return false
     }
+  },
+
+  user: (state) => {
+    return state.user || {}
+  },
+
+  idToken: (state) => {
+    // get current token from state, short-circuit if not set
+    const token = state.idToken
+    if (!token) return null
+
+    // check expiry of current token
+    const expiry = jwtDecode(token).exp
+    const target = Math.floor(Date.now() / 1000) + 10
+
+    // return null if token expires too quickly
+    if (expiry <= target) {
+      return null
+    }
+
+    return token
   }
 }

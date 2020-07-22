@@ -1,5 +1,6 @@
 import auth from './auth'
 import anime from './anime'
+import profile from './profile'
 export default {
   submit: 'Submit',
   cancel: 'Cancel',
@@ -30,5 +31,6 @@ export default {
     }
   },
   auth,
-  anime
+  anime,
+  profile
 }

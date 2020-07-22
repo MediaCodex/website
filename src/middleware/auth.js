@@ -1,3 +1,8 @@
-export default ({ store }) => {
-  store.dispatch('auth/fetchUser')
+export default ({ store, error }) => {
+  if (!store.getters['auth/isLoggedIn']) {
+    error({
+      message: 'You are not signed in',
+      statusCode: 403
+    })
+  }
 }
