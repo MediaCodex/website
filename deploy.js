@@ -6,7 +6,7 @@ const CloudFront = require('aws-sdk/clients/cloudfront')
 const mime = require('mime-types')
 
 // config
-const { bucket, distribution } = require('deploy.json')
+const { bucket, distribution } = require('./deploy.json')
 const commitRef = process.argv[2]
 const buildDir = resolve(__dirname, 'dist')
 
