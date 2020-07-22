@@ -7,25 +7,21 @@ default:
   cache:
     key: "${CI_COMMIT_REF_SLUG}"
     paths:
-      - node_modules/
-      - .terraform
+      - .npm/
+      - .terraform/
 
 stages:
   - install
   - validate
   - plan
-  - build
+  - getenv
   - deploy_dev
   - deploy_prod
-
-install:
-  stage: install
-  script: 
-    - npm ci
 
 lint:
   stage: validate
   script:
+    - npm ci --cache .npm --prefer-offline
     - npm run lint
 
 .getenv: 
@@ -48,6 +44,7 @@ lint:
 .deploy:
   stage: build
   script:
+    - npm ci --cache .npm --prefer-offline
     - npm run build
     - node deploy.js $BUCKET
 
