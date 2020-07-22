@@ -17,7 +17,7 @@ export const mutations = {
     state.user = {
       uid: authUser.uid,
       displayName: authUser.displayName,
-      photoUrl: authUser.photoUrl
+      photoURL: authUser.photoURL
     }
   },
 

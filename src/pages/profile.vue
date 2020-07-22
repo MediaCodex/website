@@ -32,6 +32,7 @@
               <!-- Basic Info -->
               <v-col cols="12" md="6">
                 <v-form>
+                  <!-- displayName -->
                   <v-text-field
                     v-model="displayName"
                     :label="$t('profile.displayName')"
@@ -39,6 +40,13 @@
                     outlined
                     required
                     counter="20"
+                  />
+                  <!-- photoURL -->
+                  <v-text-field
+                    v-model="photoURL"
+                    :label="$t('profile.photoURL')"
+                    type="text"
+                    outlined
                   />
                 </v-form>
               </v-col>
@@ -97,8 +105,9 @@ export default {
   components: { IconBtn },
   middleware: ['auth'],
   data: () => ({
-    displayName: '',
-    submitting: false
+    submitting: false,
+    displayName: undefined,
+    photoURL: undefined
   }),
   computed: {
     providers() {
@@ -107,15 +116,17 @@ export default {
     }
   },
   mounted() {
-    const { displayName } = this.$fireAuth.currentUser
+    const { displayName, photoURL } = this.$fireAuth.currentUser
     this.displayName = displayName
+    this.photoURL = photoURL
   },
   methods: {
     async submit() {
       this.submitting = true
 
       await this.$store.dispatch('auth/updateProfile', {
-        displayName: this.displayName
+        displayName: this.displayName,
+        photoURL: this.photoURL
       })
 
       this.submitting = false
