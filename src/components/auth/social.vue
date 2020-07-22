@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import IconBtn from '..//iconButton'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import IconBtn from '../iconButton'
 export default {
   name: 'Social',
   components: { IconBtn },

@@ -99,7 +99,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import IconBtn from '~/components/iconButton'
 export default {
   components: { IconBtn },

@@ -1,5 +1,6 @@
-import firebase from 'firebase'
 import jwtDecode from 'jwt-decode'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 export const state = () => ({
   user: null,
