@@ -120,6 +120,6 @@ export default {
    */
   env: {
     DOMAIN_NAME: process.env.DOMAIN_NAME,
-    FIRE_ENV: process.env.FIRE_ENV
+    FIRE_ENV: process.env.FIRE_ENV || 'development'
   }
 }
