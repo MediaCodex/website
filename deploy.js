@@ -1,7 +1,8 @@
 const { resolve } = require('path')
 const { readdir } = require('fs').promises
-const { readFileSync } = require('fs')
+const { createReadStream } = require('fs')
 const S3 = require('aws-sdk/clients/s3')
+const mime = require('mime-types')
 
 const bucket = process.argv[2]
 const buildDir = resolve(__dirname, 'dist')
@@ -9,6 +10,7 @@ const buildDir = resolve(__dirname, 'dist')
 async function* getFiles(dir) {
   const dirents = await readdir(dir, { withFileTypes: true })
   for (const dirent of dirents) {
+    console.log(dirent)
     const res = resolve(dir, dirent.name)
     if (dirent.isDirectory()) {
       yield* getFiles(res)
@@ -18,17 +20,20 @@ async function* getFiles(dir) {
   }
 }
 
-const uploadFile = (s3, file) => {
-  const objectKey = file.replace(buildDir, '')
+const uploadFile = async (s3, file) => {
+  const objectKey = file.replace(`${buildDir}/`, '')
   console.info(`Found file: ${file}\nUploading to: ${objectKey}`)
 
   const params = {
-    Body: readFileSync(file),
+    Body: createReadStream(file),
     Bucket: bucket,
-    Key: objectKey
+    Key: objectKey,
+    ContentType: mime.lookup(file)
   }
 
-  return s3.upload(params).promise()
+  console.log(params)
+  await s3.upload(params).promise()
+  params.Body.close()
 }
 
 const main = async () => {
