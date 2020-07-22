@@ -9,7 +9,6 @@
     <p>
       Auth token <code>{{ idToken }}</code>
     </p>
-    <p>asyncData: {{ id }}</p>
     <v-btn @click="signOut">logout</v-btn>
     <h4>WIP sections:</h4>
     <ul>
