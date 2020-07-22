@@ -14,9 +14,9 @@ stages:
   - install
   - validate
   - plan
-  - getenv
   - build
-  - deploy
+  - deploy_dev
+  - deploy_prod
 
 install:
   stage: install
@@ -45,21 +45,11 @@ lint:
     paths:
        - .env
 
-.build:
+.deploy:
   stage: build
   script:
     - npm run build
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - dist/
-
-.deploy:
-  stage: deploy
-  image: python:latest
-  script:
-    - pip install awscli
-    - aws s3 cp dist s3://$BUCKET --recursive
+    - node deploy.js $BUCKET
 
 ###
 # dev
@@ -71,14 +61,8 @@ getenv_dev:
   environment:
     name: development
 
-build_dev:
-  extends: .build
-  environment:
-    name: development
-  dependencies:
-    - getenv_dev
-
-deploy_dev:
+deploy_code_dev:
+  stage: deploy_dev
   extends:
     - .aws_dev
     - .deploy
@@ -87,7 +71,7 @@ deploy_dev:
   variables:
     BUCKET: mediacodex.dev
   dependencies:
-    - build_dev
+    - getenv_dev
   only:
     - master
 
@@ -109,6 +93,7 @@ deploy_dev:
 #     - getenv_prod
 
 # deploy_prod:
+#   stage: deploy_prod
 #   extends:
 #     - .aws_prod
 #     - .deploy
