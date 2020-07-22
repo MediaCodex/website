@@ -94,6 +94,7 @@ export default {
    * @see{@link https://firebase.nuxtjs.org/guide/options/#config}
    */
   firebase: {
+    customEnv: true,
     config: firebaseConfig,
     services: {
       auth: {
