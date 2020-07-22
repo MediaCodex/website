@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import Auth from '../auth'
 import Actions from './actions/index'
 import Settings from './settings'
+import Auth from '~/components/auth'
 export default {
   name: 'NavProfile',
   middleware: 'auth',

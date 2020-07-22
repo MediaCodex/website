@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Logout from '../../auth/logout'
 import EditProfile from './editProfile'
+import Logout from '~/components/auth/logout'
 export default {
   name: 'Actions',
   components: { Logout, EditProfile }

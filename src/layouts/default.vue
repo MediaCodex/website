@@ -27,11 +27,11 @@
 </template>
 
 <script>
+import Search from './navbar/search'
+import Routes from './navbar/routes'
+import Profile from './navbar/profile'
+import SettingsButton from './navbar/settingsButton'
 import Meta from '~/assets/js/meta'
-import Search from '~/components/navbar/search'
-import Routes from '~/components/navbar/routes'
-import Profile from '~/components/navbar/profile'
-import SettingsButton from '~/components/navbar/settingsButton'
 export default {
   components: {
     Search,
