@@ -2,9 +2,12 @@ const { resolve } = require('path')
 const { readdir } = require('fs').promises
 const { createReadStream } = require('fs')
 const S3 = require('aws-sdk/clients/s3')
+const CloudFront = require('aws-sdk/clients/cloudfront')
 const mime = require('mime-types')
 
-const bucket = process.argv[2]
+// config
+const { bucket, distribution } = require('deploy.json')
+const commitRef = process.argv[2]
 const buildDir = resolve(__dirname, 'dist')
 
 async function* getFiles(dir) {
@@ -31,23 +34,47 @@ const uploadFile = async (s3, file) => {
     ContentType: mime.lookup(file)
   }
 
-  console.log(params)
   await s3.upload(params).promise()
   params.Body.close()
 }
 
-const main = async () => {
-  const s3 = new S3()
-  if (!bucket) {
-    throw new Error('Missing bucket arg')
+const invalidateFiles = (files) => {
+  const paths = files.map((file) => file.replace(`${buildDir}/`, ''))
+  const cf = new CloudFront()
+
+  const params = {
+    DistributionId: 'STRING_VALUE',
+    InvalidationBatch: {
+      CallerReference: 'STRING_VALUE',
+      Paths: {
+        Quantity: paths.length,
+        Items: paths
+      }
+    }
   }
 
+  return cf.createInvalidation(params).promise()
+}
+
+const main = async () => {
+  const s3 = new S3()
+  if (!bucket) throw new Error('Missing bucket arg')
+  if (!commitRef) throw new Error('Missing Commit Ref')
+  if (!distribution) throw new Error('Missing CloudFront distribution')
+
   const uploads = []
+  const html = []
+
+  // upload files to S3
   for await (const file of getFiles(buildDir)) {
     uploads.push(uploadFile(s3, file))
+    if (file.test(/.+\.html$/)) {
+      html.push(file)
+    }
   }
 
   await Promise.all(uploads)
+  await invalidateFiles(html)
 }
 
 main()

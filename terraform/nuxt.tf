@@ -20,3 +20,11 @@ output "nuxt" {
     FIRE_ENV    = local.firebase_env
   } })
 }
+
+output "nuxt_deploy" {
+  description = "Keys for uploading files to S3"
+  value = jsonencode({
+    bucket       = aws_s3_bucket.default.id
+    distribution = aws_cloudfront_distribution.default.id
+  })
+}

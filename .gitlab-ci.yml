@@ -36,6 +36,7 @@ lint:
     - terraform init
     - terraform workspace select $CI_ENVIRONMENT_NAME
     - terraform output nuxt -no-color > ../.env
+    - terraform output nuxt_deploy -no-color > ../.deploy.json
   artifacts:
     expire_in: 1 week
     paths:
@@ -46,7 +47,7 @@ lint:
   script:
     - npm ci --cache .npm --prefer-offline
     - npm run build
-    - node deploy.js $BUCKET
+    - node deploy.js $CI_COMMIT_SHA
 
 ###
 # dev
@@ -65,8 +66,6 @@ deploy_code_dev:
     - .deploy
   environment:
     name: development
-  variables:
-    BUCKET: mediacodex.dev
   dependencies:
     - getenv_dev
   only:
@@ -96,8 +95,6 @@ deploy_code_dev:
 #     - .deploy
 #   environment:
 #     name: production
-#   variables:
-#     BUCKET: mediacodex.net
 #   dependencies:
 #     - build_prod
 #   only:
