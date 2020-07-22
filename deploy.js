@@ -43,9 +43,9 @@ const invalidateFiles = (files) => {
   const cf = new CloudFront()
 
   const params = {
-    DistributionId: 'STRING_VALUE',
+    DistributionId: distribution,
     InvalidationBatch: {
-      CallerReference: 'STRING_VALUE',
+      CallerReference: commitRef,
       Paths: {
         Quantity: paths.length,
         Items: paths
