@@ -41,7 +41,7 @@ export default {
   },
   middleware: [],
   data: () => ({
-    drawer: true
+    drawer: null
   }),
   computed: {
     isLoggedIn() {
