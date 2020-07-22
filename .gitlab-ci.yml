@@ -73,8 +73,6 @@ getenv_dev:
 
 build_dev:
   extends: .build
-  variables:
-    FIRE_ENV: development
   environment:
     name: development
   dependencies:
