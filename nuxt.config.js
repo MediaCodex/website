@@ -8,15 +8,10 @@ export default {
    * Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'MediaCodex',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
@@ -34,7 +29,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios'],
 
   /**
    * Nuxt.js dev-modules
@@ -43,8 +38,8 @@ export default {
    * @see{@link https://github.com/nuxt-community/stylelint-module Stylelint Module}
    */
   buildModules: [
-    '@nuxtjs/eslint-module',
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'
   ],
 
@@ -55,18 +50,20 @@ export default {
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
   modules: [
+    '@nuxtjs/firebase',
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv',
-    'nuxt-i18n',
-    '@nuxtjs/firebase'
+    'nuxt-i18n'
   ],
 
   /**
    * Axios module configuration
    * @see{@link https://axios.nuxtjs.org/options}
    */
-  axios: {},
+  axios: {
+    baseURL: `https://api.mediacodex.dev/v1`
+  },
 
   /**
    * i18n Configuration

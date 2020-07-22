@@ -9,6 +9,7 @@
     <p>
       Auth token <code>{{ idToken }}</code>
     </p>
+    <p>asyncData: {{ id }}</p>
     <v-btn @click="signOut">logout</v-btn>
     <h4>WIP sections:</h4>
     <ul>
@@ -24,7 +25,7 @@ export default {
       return JSON.stringify(this.$store.state.auth.user)
     },
     idToken() {
-      return this.$store.state.auth.idToken
+      return this.$store.getters['auth/idToken']
     },
     isLoggedIn() {
       return this.$store.getters['auth/isLoggedIn']

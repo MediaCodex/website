@@ -30,6 +30,7 @@
     "axios": "^0.19.2",
     "change-case": "^4.1.1",
     "firebase": "^7.16.1",
+    "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.31",
     "nuxt": "^2.13.3",
     "nuxt-i18n": "^6.13.1"
@@ -38,6 +39,7 @@
     "@mdi/font": "^4.9.95",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.2.0",
+    "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/stylelint-module": "^3.1.0",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",

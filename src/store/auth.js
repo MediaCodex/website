@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import jwtDecode from 'jwt-decode'
 
 export const state = () => ({
   user: null,
@@ -87,5 +88,22 @@ export const getters = {
 
   user: (state) => {
     return state.user || {}
+  },
+
+  idToken: (state) => {
+    // get current token from state, short-circuit if not set
+    const token = state.idToken
+    if (!token) return null
+
+    // check expiry of current token
+    const expiry = jwtDecode(token).exp
+    const target = Math.floor(Date.now() / 1000) + 10
+
+    // return null if token expires too quickly
+    if (expiry <= target) {
+      return null
+    }
+
+    return token
   }
 }
