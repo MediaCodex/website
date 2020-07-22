@@ -13,7 +13,6 @@ const buildDir = resolve(__dirname, 'dist')
 async function* getFiles(dir) {
   const dirents = await readdir(dir, { withFileTypes: true })
   for (const dirent of dirents) {
-    console.log(dirent)
     const res = resolve(dir, dirent.name)
     if (dirent.isDirectory()) {
       yield* getFiles(res)
