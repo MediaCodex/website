@@ -57,7 +57,14 @@ resource "aws_cloudfront_distribution" "default" {
   tags = var.default_tags
 }
 
+/*
+ * Outputs
+ */
 output "cloudfront_domain" {
   description = "Cloudfront origin hostname"
   value       = aws_cloudfront_distribution.default.domain_name
+}
+output "cloudfront_arn" {
+  description = "Cloudfront origin ARN"
+  value       = aws_cloudfront_distribution.default.arn
 }
