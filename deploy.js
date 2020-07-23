@@ -30,7 +30,7 @@ const uploadFile = async (s3, file) => {
     Body: createReadStream(file),
     Bucket: bucket,
     Key: objectKey,
-    ContentType: mime.lookup(file)
+    ContentType: mime.lookup(file) || 'application/octet-stream'
   }
 
   await s3.upload(params).promise()
@@ -38,9 +38,8 @@ const uploadFile = async (s3, file) => {
 }
 
 const invalidateFiles = (files) => {
-  const paths = files.map((file) => file.replace(`${buildDir}/`, ''))
+  const paths = files.map((file) => file.replace(`${buildDir}`, ''))
   const cf = new CloudFront()
-
   const params = {
     DistributionId: distribution,
     InvalidationBatch: {
@@ -67,7 +66,7 @@ const main = async () => {
   // upload files to S3
   for await (const file of getFiles(buildDir)) {
     uploads.push(uploadFile(s3, file))
-    if (file.test(/.+\.html$/)) {
+    if (/.+\.html$/.test(file)) {
       html.push(file)
     }
   }
