@@ -36,11 +36,12 @@ lint:
     - terraform init
     - terraform workspace select $CI_ENVIRONMENT_NAME
     - terraform output nuxt -no-color > ../.env
-    - terraform output nuxt_deploy -no-color > ../.deploy.json
+    - terraform output nuxt_deploy -no-color > ../deploy.json
   artifacts:
     expire_in: 1 week
     paths:
        - .env
+       - deploy.json
 
 .deploy:
   stage: build
