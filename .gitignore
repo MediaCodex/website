@@ -1,6 +1,6 @@
 src/static/sw.js
 **/*.tfvars
-
+deploy.json
 
 # Created by https://www.gitignore.io/api/vue,node,code,vuejs,terraform,nuxt
 # Edit at https://www.gitignore.io/?templates=vue,node,code,vuejs,terraform,nuxt
