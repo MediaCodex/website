@@ -1,6 +1,7 @@
 import auth from './auth'
 import anime from './anime'
 import profile from './profile'
+import companies from './companies'
 export default {
   submit: 'Submit',
   cancel: 'Cancel',
@@ -14,6 +15,10 @@ export default {
   },
   settings: {
     darkmode: 'Dark mode'
+  },
+  actions: {
+    refresh: 'Reload data',
+    clear: 'Clear fields'
   },
   create: {
     title: 'Title',
@@ -32,5 +37,6 @@ export default {
   },
   auth,
   anime,
-  profile
+  profile,
+  companies
 }

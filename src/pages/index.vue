@@ -13,6 +13,7 @@
     <h4>WIP sections:</h4>
     <ul>
       <li><nuxt-link to="/anime">Anime</nuxt-link></li>
+      <li><nuxt-link to="/companies">Companies</nuxt-link></li>
     </ul>
   </v-container>
 </template>

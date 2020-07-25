@@ -1,31 +1,12 @@
 <template>
   <v-container fluid>
     <!-- header -->
-    <v-row class="px-4" dense>
-      <!-- navigation -->
-      <v-col align-self="end">
-        <v-btn icon nuxt exact to="/anime">
-          <v-icon dark>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-col>
-
-      <!-- title -->
-      <v-col>
-        <section class="text-center">
-          <h1 class="mb-2 display-3">{{ $t('anime.create.title') }}</h1>
-        </section>
-      </v-col>
-
-      <!-- actions -->
-      <v-col align="right" justify="end" align-self="end">
-        <v-btn icon class="mr-1" @click="refresh">
-          <v-icon dark>mdi-refresh</v-icon>
-        </v-btn>
-        <v-btn icon color="error darken" @click="clear">
-          <v-icon dark>mdi-close</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    <page-header
+      back="/anime"
+      :title="$t('anime.create.title')"
+      @refresh="refresh"
+      @clear="clear"
+    />
 
     <!-- block one -->
     <v-row>
@@ -124,8 +105,9 @@ import { typesDisplay } from '~/assets/js/anime'
 import DatetimePicker from '~/components/DatetimePicker'
 import DatePicker from '~/components/DatePicker'
 import Schedule from '~/components/schedule'
+import PageHeader from '~/components/header'
 export default {
-  components: { DatetimePicker, DatePicker, Schedule },
+  components: { DatetimePicker, DatePicker, Schedule, PageHeader },
   data: () => ({
     showAiredFrom: false,
     // form data

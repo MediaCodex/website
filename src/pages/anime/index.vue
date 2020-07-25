@@ -1,9 +1,6 @@
 <template>
   <v-container fluid>
-    <breadcrumbs :items="breadcrumbs" />
-    <section class="mb-6 text-center">
-      <h1 class="mb-2 display-3">Anime home</h1>
-    </section>
+    <page-header :breadcrumbs="breadcrumbs" />
     <v-row>
       <v-col>
         <v-card>
@@ -21,9 +18,9 @@
 </template>
 
 <script>
-import Breadcrumbs from '~/components/breadcrumbs'
+import PageHeader from '~/components/header'
 export default {
-  components: { Breadcrumbs },
+  components: { PageHeader },
   data: () => ({
     breadcrumbs: [
       { icon: 'home', to: '/', disabled: false },
