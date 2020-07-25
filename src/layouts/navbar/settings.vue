@@ -1,6 +1,6 @@
 <template>
-  <v-list-item-group>
-    <v-list-item>
+  <div>
+    <v-list-item @click="darkmode">
       <v-switch
         v-model="$vuetify.theme.dark"
         append-icon="mdi-brightness-4"
@@ -8,11 +8,16 @@
         primary
       />
     </v-list-item>
-  </v-list-item-group>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Settings'
+  name: 'Settings',
+  methods: {
+    darkmode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
+  }
 }
 </script>
