@@ -40,13 +40,13 @@ export default {
   buildModules: [
     '@nuxtjs/stylelint-module',
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/moment'
   ],
 
   /**
    * Nuxt.js modules
    *
-   * @see{@link https://axios.nuxtjs.org/usage Axios Module}
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
   modules: [
@@ -59,6 +59,7 @@ export default {
 
   /**
    * Axios module configuration
+   *
    * @see{@link https://axios.nuxtjs.org/options}
    */
   axios: {
@@ -67,6 +68,7 @@ export default {
 
   /**
    * i18n Configuration
+   *
    * @see{@link https://nuxt-community.github.io/nuxt-i18n/}
    */
   i18n: {
@@ -82,6 +84,11 @@ export default {
     seo: false
   },
 
+  /**
+   * Vuetify config
+   *
+   * @see {@link https://github.com/nuxt-community/vuetify-module#options}
+   */
   vuetify: {
     defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
@@ -90,7 +97,19 @@ export default {
   },
 
   /**
+   * Moment config
+   *
+   * @see {@link https://github.com/nuxt-community/moment-module#configuration}
+   */
+  moment: {
+    timezone: true,
+    defaultLocale: 'en'
+    // locales: ['en']
+  },
+
+  /**
    * Firebase config
+   *
    * @see{@link https://firebase.nuxtjs.org/guide/options/#config}
    */
   firebase: {
