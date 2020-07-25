@@ -19,9 +19,21 @@
 
     <!-- actions -->
     <v-col align-self="end" align="right" cols="3">
+      <!-- options menu -->
+      <v-menu v-if="hasActions" offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn icon class="mr-1" v-on="on">
+            <v-icon dark>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+        <v-list width="230">
+          <slot name="actions"></slot>
+        </v-list>
+      </v-menu>
+
       <!-- refresh -->
       <v-btn
-        v-if="hasRefreshListener"
+        v-if="hasRefresh"
         icon
         class="mr-1"
         :title="$t('actions.refresh')"
@@ -32,7 +44,7 @@
 
       <!-- clear -->
       <v-btn
-        v-if="hasClearListener"
+        v-if="hasClear"
         icon
         color="error darken"
         :title="$t('actions.clear')"
@@ -54,11 +66,14 @@ export default {
     breadcrumbs: { type: Array, default: undefined }
   },
   computed: {
-    hasRefreshListener() {
+    hasRefresh() {
       return this.$listeners && this.$listeners.refresh
     },
-    hasClearListener() {
+    hasClear() {
       return this.$listeners && this.$listeners.clear
+    },
+    hasActions() {
+      return this.$slots && this.$slots.actions
     }
   }
 }

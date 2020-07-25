@@ -1,7 +1,8 @@
 export default {
   pages: {
     index: 'Companies',
-    create: 'Create'
+    create: 'Create',
+    edit: 'Edit'
   },
   name: 'Name',
   slug: 'Slug',

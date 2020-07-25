@@ -1,28 +1,18 @@
 <template>
   <v-container fluid>
     <!-- header -->
-    <v-row class="px-4" dense>
-      <!-- navigation -->
-      <v-col align-self="end">
-        <v-btn icon nuxt exact to="/companies">
-          <v-icon dark>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-col>
-
-      <!-- title -->
-      <v-col>
-        <section class="text-center">
-          <h1 class="mb-2 display-3">{{ name }}</h1>
-        </section>
-      </v-col>
-
-      <!-- actions -->
-      <v-col align="right" justify="end" align-self="end">
-        <v-btn icon class="mr-1" @click="refresh">
-          <v-icon dark>mdi-refresh</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    <page-header :breadcrumbs="breadcrumbs" @refresh="refresh">
+      <template v-slot:actions>
+        <v-list-item nuxt :to="`/companies/${id}/edit`">
+          <v-list-item-icon>
+            <v-icon v-text="'mdi-pencil'" />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="$t('companies.pages.edit')" />
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </page-header>
 
     <!-- block one -->
     <v-row>
@@ -68,24 +58,7 @@
               </v-col>
 
               <!-- dates -->
-              <v-col cols="12" md="6">
-                <v-form>
-                  <date-picker
-                    v-model="founded"
-                    outlined
-                    :label="$t('companies.founded')"
-                  />
-                </v-form>
-              </v-col>
-            </v-row>
-
-            <!-- submit -->
-            <v-row>
-              <v-col>
-                <v-btn color="primary" :loading="submitting" @click="submit">
-                  {{ $t('submit') }}
-                </v-btn>
-              </v-col>
+              <v-col cols="12" md="6"></v-col>
             </v-row>
           </v-card-text>
         </v-card>
@@ -95,20 +68,35 @@
 </template>
 
 <script>
+import PageHeader from '~/components/header'
 export default {
+  components: { PageHeader },
   asyncData({ $api, params }) {
-    return $api.$get(`/companies/${params.slug}`)
+    const id = params.slug.split('-').pop()
+    return $api.$get(`/companies/${id}`)
   },
   data: () => ({
     loading: true,
-    id: '',
+    id: undefined,
     slug: undefined,
     name: undefined,
     founded: undefined
   }),
+  computed: {
+    breadcrumbs() {
+      return [
+        { icon: 'home', to: '/' },
+        { text: this.$t('companies.pages.index'), to: '/companies' },
+        { text: this.name, disabled: true }
+      ]
+    }
+  },
   methods: {
-    refresh() {
-      this.asyncData()
+    async refresh() {
+      this.loading = true
+      const res = await this.$api.$get(`/companies/${this.id}`)
+      Object.assign(this, res)
+      this.loading = false
     }
   }
 }
