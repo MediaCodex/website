@@ -20,7 +20,8 @@ export default {
   },
   actions: {
     refresh: 'Reload data',
-    clear: 'Clear fields'
+    clear: 'Clear fields',
+    create: 'Create new record'
   },
   create: {
     title: 'Title',

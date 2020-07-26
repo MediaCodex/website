@@ -71,10 +71,18 @@
 import PageHeader from '~/components/header'
 export default {
   components: { PageHeader },
+
   asyncData({ $api, params }) {
-    const id = params.slug.split('-').pop()
-    return $api.$get(`/companies/${id}`)
+    const idPrefix = /_[a-zA-Z0-9]{10}/
+    if (idPrefix.test(params.slug)) {
+      return $api.$get(`/companies/${params.slug.replace('_', '')}`)
+    }
+
+    return $api.$get(`/companies/${params.slug}`, {
+      params: { slug: true }
+    })
   },
+
   data: () => ({
     loading: true,
     id: undefined,
@@ -82,6 +90,7 @@ export default {
     name: undefined,
     founded: undefined
   }),
+
   computed: {
     breadcrumbs() {
       return [
@@ -91,6 +100,7 @@ export default {
       ]
     }
   },
+
   methods: {
     async refresh() {
       this.loading = true

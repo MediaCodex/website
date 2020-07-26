@@ -67,8 +67,7 @@ export default {
   components: { DatePicker, PageHeader },
   middleware: ['auth'],
   asyncData({ $api, params }) {
-    const id = params.slug.split('-').pop()
-    return $api.$get(`/companies/${id}`)
+    return $api.$get(`/companies/${params.slug}`)
   },
   data: () => ({
     submitting: false,
@@ -86,7 +85,7 @@ export default {
       return [
         { icon: 'home', to: '/' },
         { text: this.$t('companies.pages.index'), to: '/companies' },
-        { text: this.name, to: `/companies/${this.slug}-${this.id}` },
+        { text: this.name, to: `/companies/${this.slug}` },
         { text: this.$t('companies.pages.edit'), disabled: true }
       ]
     }
@@ -99,9 +98,8 @@ export default {
         slug: this.slug || this.defaultSlug,
         founded: this.founded
       }
-      await this.$api.$post('companies', body)
+      await this.$api.$patch('companies', body)
       this.submitting = false
-      this.$router.push(`/companies/${body.slug}`)
     },
     clear() {
       // TODO: confirmation overlay

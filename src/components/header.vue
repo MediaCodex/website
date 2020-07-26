@@ -46,11 +46,22 @@
       <v-btn
         v-if="hasClear"
         icon
-        color="error darken"
+        color="error darken mr-1"
         :title="$t('actions.clear')"
         @click="$emit('clear')"
       >
         <v-icon dark>mdi-close</v-icon>
+      </v-btn>
+
+      <!-- create -->
+      <v-btn
+        v-if="hasCreate"
+        icon
+        color="primary"
+        :title="$t('actions.create')"
+        @click="$emit('create')"
+      >
+        <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-col>
   </v-row>
@@ -71,6 +82,9 @@ export default {
     },
     hasClear() {
       return this.$listeners && this.$listeners.clear
+    },
+    hasCreate() {
+      return this.$listeners && this.$listeners.create
     },
     hasActions() {
       return this.$slots && this.$slots.actions
