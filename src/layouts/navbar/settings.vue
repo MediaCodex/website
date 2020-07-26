@@ -1,11 +1,12 @@
 <template>
   <div>
-    <v-list-item @click="darkmode">
+    <v-list-item @click="toggleDarkmode">
       <v-switch
-        v-model="$vuetify.theme.dark"
+        v-model="isDarkmode"
         append-icon="mdi-brightness-4"
         :label="$t('settings.darkmode')"
         primary
+        @change="toggleDarkmode"
       />
     </v-list-item>
   </div>
@@ -14,9 +15,16 @@
 <script>
 export default {
   name: 'Settings',
+  computed: {
+    isDarkmode() {
+      return this.$vuetify.theme.dark
+    }
+  },
   methods: {
-    darkmode() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    toggleDarkmode() {
+      const theme = !this.$vuetify.theme.dark
+      this.$cookies.set('vuetify-dark-theme', theme)
+      this.$vuetify.theme.dark = theme
     }
   }
 }

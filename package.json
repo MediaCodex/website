@@ -29,6 +29,7 @@
     "@nuxtjs/vuetify": "^1.11.2",
     "axios": "^0.19.2",
     "change-case": "^4.1.1",
+    "cookie-universal-nuxt": "^2.1.4",
     "firebase": "^7.16.1",
     "jwt-decode": "^2.2.0",
     "nuxt": "^2.13.3",

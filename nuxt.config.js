@@ -29,7 +29,7 @@ export default {
   /**
    * Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios'],
+  plugins: ['~/plugins/axios', '~/plugins/vuetify'],
 
   /**
    * Nuxt.js dev-modules
@@ -50,6 +50,7 @@ export default {
    * @see{@link https://github.com/nuxt-community/dotenv-module Dotenv Module}
    */
   modules: [
+    'cookie-universal-nuxt',
     '@nuxtjs/firebase',
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
@@ -90,10 +91,17 @@ export default {
    * @see {@link https://github.com/nuxt-community/vuetify-module#options}
    */
   vuetify: {
+    treeShake: true,
     defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
-    treeShake: true,
-    optionsPath: './vuetify.config.js'
+    icons: {
+      iconfont: 'mdi'
+    },
+    theme: {
+      options: {
+        variations: false
+      }
+    }
   },
 
   /**
