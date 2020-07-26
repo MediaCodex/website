@@ -11,7 +11,9 @@ export default {
   navbar: {
     search: 'Search...',
     login: 'Sign in',
-    logout: 'Logout'
+    logout: 'Logout',
+    home: 'Home',
+    misc: 'Misc'
   },
   settings: {
     darkmode: 'Dark mode'

@@ -1,6 +1,6 @@
 export default {
-  create: {
-    title: 'Create Anime'
+  pages: {
+    index: 'Anime'
   },
   type: 'Type',
   types: {
