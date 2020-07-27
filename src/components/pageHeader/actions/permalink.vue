@@ -27,10 +27,10 @@ export default {
       // https://caniuse.com/#feat=mdn-api_clipboard_writetext
       if (permission.state === 'granted' || permission.state === 'prompt') {
         navigator.clipboard.writeText(domain + path)
+      } else {
+        // TODO: display error if denied
+        console.log(`Clipboard failed: ${permission.state}`)
       }
-
-      // TODO: display error if denied
-      console.log(`Clipboard failed: ${permission.state}`)
     }
   }
 }
