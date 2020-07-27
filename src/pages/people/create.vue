@@ -14,7 +14,7 @@
                 <v-form>
                   <v-text-field
                     v-model="name"
-                    :label="$t('companies.name')"
+                    :label="$t('people.name')"
                     type="text"
                     outlined
                     required
@@ -22,7 +22,7 @@
                   />
                   <v-text-field
                     v-model="slug"
-                    :label="$t('companies.slug')"
+                    :label="$t('people.slug')"
                     type="text"
                     outlined
                     required
@@ -36,9 +36,14 @@
               <v-col cols="12" md="6">
                 <v-form>
                   <date-picker
-                    v-model="founded"
+                    v-model="born"
                     outlined
-                    :label="$t('companies.founded')"
+                    :label="$t('people.born')"
+                  />
+                  <date-picker
+                    v-model="died"
+                    outlined
+                    :label="$t('people.died')"
                   />
                 </v-form>
               </v-col>
@@ -66,28 +71,24 @@ import PageHeader from '~/components/pageHeader'
 export default {
   components: { DatePicker, PageHeader },
   middleware: ['auth'],
-  asyncData({ $api, params }) {
-    return $api.$get(`/companies/${params.slug}`)
+  data() {
+    return {
+      breadcrumbs: [
+        { icon: 'home', to: '/' },
+        { text: this.$t('people.pages.index'), to: '/people' },
+        { text: this.$t('people.pages.create'), disabled: true }
+      ],
+      submitting: false,
+      // form data
+      name: undefined,
+      slug: undefined,
+      born: undefined,
+      died: undefined
+    }
   },
-  data: () => ({
-    submitting: false,
-    // form data
-    id: undefined,
-    name: undefined,
-    slug: undefined,
-    founded: undefined
-  }),
   computed: {
     defaultSlug() {
       return this.name ? paramCase(this.name) : undefined
-    },
-    breadcrumbs() {
-      return [
-        { icon: 'home', to: '/' },
-        { text: this.$t('companies.pages.index'), to: '/companies' },
-        { text: this.name, to: `/companies/${this.slug}` },
-        { text: this.$t('companies.pages.edit'), disabled: true }
-      ]
     }
   },
   methods: {
@@ -96,10 +97,12 @@ export default {
       const body = {
         name: this.name,
         slug: this.slug || this.defaultSlug,
-        founded: this.founded
+        born: this.born,
+        died: this.died
       }
-      await this.$api.$put(`/companies/${this.id}`, body)
+      await this.$api.$post('people', body)
       this.submitting = false
+      this.$router.push(`/people/${body.slug}`)
     },
     clear() {
       // TODO: confirmation overlay

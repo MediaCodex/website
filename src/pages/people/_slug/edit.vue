@@ -14,7 +14,7 @@
                 <v-form>
                   <v-text-field
                     v-model="name"
-                    :label="$t('companies.name')"
+                    :label="$t('people.name')"
                     type="text"
                     outlined
                     required
@@ -22,7 +22,7 @@
                   />
                   <v-text-field
                     v-model="slug"
-                    :label="$t('companies.slug')"
+                    :label="$t('people.slug')"
                     type="text"
                     outlined
                     required
@@ -36,9 +36,14 @@
               <v-col cols="12" md="6">
                 <v-form>
                   <date-picker
-                    v-model="founded"
+                    v-model="born"
                     outlined
-                    :label="$t('companies.founded')"
+                    :label="$t('people.born')"
+                  />
+                  <date-picker
+                    v-model="died"
+                    outlined
+                    :label="$t('people.died')"
                   />
                 </v-form>
               </v-col>
@@ -67,7 +72,7 @@ export default {
   components: { DatePicker, PageHeader },
   middleware: ['auth'],
   asyncData({ $api, params }) {
-    return $api.$get(`/companies/${params.slug}`)
+    return $api.$get(`/people/${params.slug}`)
   },
   data: () => ({
     submitting: false,
@@ -75,7 +80,8 @@ export default {
     id: undefined,
     name: undefined,
     slug: undefined,
-    founded: undefined
+    born: undefined,
+    died: undefined
   }),
   computed: {
     defaultSlug() {
@@ -84,9 +90,9 @@ export default {
     breadcrumbs() {
       return [
         { icon: 'home', to: '/' },
-        { text: this.$t('companies.pages.index'), to: '/companies' },
-        { text: this.name, to: `/companies/${this.slug}` },
-        { text: this.$t('companies.pages.edit'), disabled: true }
+        { text: this.$t('people.pages.index'), to: '/people' },
+        { text: this.name, to: `/people/${this.slug}` },
+        { text: this.$t('people.pages.edit'), disabled: true }
       ]
     }
   },
@@ -96,9 +102,10 @@ export default {
       const body = {
         name: this.name,
         slug: this.slug || this.defaultSlug,
-        founded: this.founded
+        born: this.born,
+        died: this.died
       }
-      await this.$api.$put(`/companies/${this.id}`, body)
+      await this.$api.$put(`/people/${this.id}`, body)
       this.submitting = false
     },
     clear() {

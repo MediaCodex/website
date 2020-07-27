@@ -1,5 +1,6 @@
 import auth from './auth'
 import anime from './anime'
+import people from './people'
 import profile from './profile'
 import companies from './companies'
 export default {
@@ -42,6 +43,7 @@ export default {
   },
   auth,
   anime,
+  people,
   profile,
   companies
 }

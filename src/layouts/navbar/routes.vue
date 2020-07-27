@@ -35,7 +35,10 @@ export default {
       { icon: 'home', title: 'navbar.home', to: '/' },
       { icon: 'help-circle', title: 'anime.pages.index', to: '/anime' }
     ],
-    miscItems: [{ title: 'companies.pages.index', to: '/companies' }]
+    miscItems: [
+      { title: 'companies.pages.index', to: '/companies' },
+      { title: 'people.pages.index', to: '/people' }
+    ]
   })
 }
 </script>
