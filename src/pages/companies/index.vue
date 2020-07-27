@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import PageHeader from '~/components/header'
+import PageHeader from '~/components/pageHeader'
 export default {
   components: { PageHeader },
   async asyncData({ $api }) {

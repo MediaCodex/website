@@ -11,7 +11,7 @@
     </v-list-item>
 
     <!-- misc subnav -->
-    <v-list-group :key="misc" no-action>
+    <v-list-group key="misc" no-action>
       <template v-slot:activator>
         <v-list-item-content>
           <v-list-item-title v-text="$t('navbar.misc')"></v-list-item-title>

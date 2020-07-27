@@ -21,7 +21,9 @@ export default {
   actions: {
     refresh: 'Reload data',
     clear: 'Clear fields',
-    create: 'Create new record'
+    create: 'Create new record',
+    edit: 'Edit Record',
+    permalink: 'Copy permalink'
   },
   create: {
     title: 'Title',

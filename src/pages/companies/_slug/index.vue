@@ -3,14 +3,11 @@
     <!-- header -->
     <page-header :breadcrumbs="breadcrumbs" @refresh="refresh">
       <template v-slot:actions>
-        <v-list-item nuxt :to="`/companies/${id}/edit`">
-          <v-list-item-icon>
-            <v-icon v-text="'mdi-pencil'" />
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="$t('companies.pages.edit')" />
-          </v-list-item-content>
-        </v-list-item>
+        <edit-action
+          :to="`/companies/${id}/edit`"
+          title="companies.pages.edit"
+        />
+        <permalink-action :to="`/companies/_${id}`" />
       </template>
     </page-header>
 
@@ -68,9 +65,10 @@
 </template>
 
 <script>
-import PageHeader from '~/components/header'
+import PageHeader from '~/components/pageHeader'
+import { EditAction, PermalinkAction } from '~/components/pageHeader/actions'
 export default {
-  components: { PageHeader },
+  components: { PageHeader, EditAction, PermalinkAction },
 
   asyncData({ $api, params }) {
     const idPrefix = /_[a-zA-Z0-9]{10}/

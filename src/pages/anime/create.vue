@@ -105,7 +105,7 @@ import { typesDisplay } from '~/assets/js/anime'
 import DatetimePicker from '~/components/DatetimePicker'
 import DatePicker from '~/components/DatePicker'
 import Schedule from '~/components/schedule'
-import PageHeader from '~/components/header'
+import PageHeader from '~/components/pageHeader'
 export default {
   components: { DatetimePicker, DatePicker, Schedule, PageHeader },
   data: () => ({

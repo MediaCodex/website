@@ -62,7 +62,7 @@
 <script>
 import { paramCase } from 'change-case'
 import DatePicker from '~/components/DatePicker'
-import PageHeader from '~/components/header'
+import PageHeader from '~/components/pageHeader'
 export default {
   components: { DatePicker, PageHeader },
   middleware: ['auth'],
