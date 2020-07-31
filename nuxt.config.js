@@ -1,5 +1,9 @@
-import { exponentialDelay, isNetworkOrIdempotentRequestError } from 'axios-retry'
+import {
+  exponentialDelay,
+  isNetworkOrIdempotentRequestError
+} from 'axios-retry'
 import firebaseConfig from './firebase.config'
+
 export default {
   mode: 'spa',
   srcDir: 'src/',
