@@ -1,3 +1,4 @@
+import { exponentialDelay, isNetworkOrIdempotentRequestError } from 'axios-retry'
 import firebaseConfig from './firebase.config'
 export default {
   mode: 'spa',
@@ -64,7 +65,12 @@ export default {
    * @see{@link https://axios.nuxtjs.org/options}
    */
   axios: {
-    baseURL: `https://api.mediacodex.dev/v1`
+    baseURL: `https://api.mediacodex.dev/v1`,
+    retry: {
+      retries: 3,
+      retryDelay: exponentialDelay,
+      retryCondition: isNetworkOrIdempotentRequestError
+    }
   },
 
   /**
