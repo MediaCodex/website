@@ -1,10 +1,10 @@
 # MediaCodex website
 
 [![GitLab pipeline](https://img.shields.io/gitlab/pipeline/mediacodex/website)](https://gitlab.com/mediacodex/website/builds)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mediacodex_website&metric=coverage)](https://sonarcloud.io/dashboard?id=mediacodex_website)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mediacodex_website&metric=bugs)](https://sonarcloud.io/dashboard?id=mediacodex_website)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mediacodex_website&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mediacodex_website)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mediacodex_website&metric=alert_status)](https://sonarcloud.io/dashboard?id=mediacodex_website)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=coverage)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=bugs)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=alert_status)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
 
 
 ## Build Setup
