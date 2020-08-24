@@ -73,9 +73,6 @@ jobs:
       run: terraform output nuxt_deploy -no-color > ../deploy.json
       working-directory: terraform
 
-    - run: cat deploy.json
-    - run: jq . deploy.json
-
     ##
     # Deploy to S3
     ##
