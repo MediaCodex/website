@@ -51,6 +51,8 @@ jobs:
     ##
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_wrapper: false
 
     - name: Terraform init
       run: terraform init
@@ -64,11 +66,11 @@ jobs:
     # Output config from Terraform
     ##
     - name: Output Nuxt config
-      run: terraform output nuxt -no-color 2> ../.env
+      run: terraform output nuxt -no-color > ../.env
       working-directory: terraform
 
     - name: Output Deploy config
-      run: terraform output nuxt_deploy -no-color 2> ../deploy.json
+      run: terraform output nuxt_deploy -no-color > ../deploy.json
       working-directory: terraform
 
     - run: cat deploy.json
