@@ -1,12 +1,11 @@
 <template>
   <div>
-    <v-list-item @click="toggleDarkmode">
+    <v-list-item @click.stop="toggleDarkmode">
       <v-switch
         v-model="isDarkmode"
         append-icon="mdi-brightness-4"
         :label="$t('settings.darkmode')"
         primary
-        @change="toggleDarkmode"
       />
     </v-list-item>
   </div>
