@@ -57,7 +57,7 @@ jobs:
       working-directory: terraform
 
     - name: Terraform Select Workspace
-      run: terraform workspace select ${TERRAFORM_WORKSPACE}
+      run: terraform workspace select $TERRAFORM_WORKSPACE
       working-directory: terraform
     
     ##
