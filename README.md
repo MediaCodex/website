@@ -1,6 +1,6 @@
 # MediaCodex website
 
-[![GitLab pipeline](https://img.shields.io/gitlab/pipeline/mediacodex/website)](https://gitlab.com/mediacodex/website/builds)
+![Deploy NodeJS](https://github.com/MediaCodex/website/workflows/Deploy%20NodeJS/badge.svg)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=coverage)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=bugs)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MediaCodex_website&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MediaCodex_website)
