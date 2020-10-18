@@ -39,7 +39,6 @@ variable "deploy_aws_accounts" {
 }
 
 provider "aws" {
-  version             = "~> 2.0"
   region              = "eu-central-1"
   allowed_account_ids = var.deploy_aws_accounts[local.environment]
   assume_role {
