@@ -9,7 +9,7 @@ resource "cloudflare_record" "website" {
   zone_id = data.aws_ssm_parameter.cloudflare_zone.value
   name    = "@"
   type    = "CNAME"
-  value   = local.domain
+  value   = aws_cloudfront_distribution.default.domain_name
   proxied = true
 }
 
