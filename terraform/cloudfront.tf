@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = data.terraform_remote_state.core.outputs.website_cert
+    acm_certificate_arn      = aws_acm_certificate.website.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2019"
   }
@@ -57,14 +57,19 @@ resource "aws_cloudfront_distribution" "default" {
   tags = var.default_tags
 }
 
-/*
- * Outputs
+/**
+ * SSM Outputs
  */
-output "cloudfront_domain" {
-  description = "Cloudfront origin hostname"
-  value       = aws_cloudfront_distribution.default.domain_name
+resource "aws_ssm_parameter" "hostname" {
+  name  = "/website/distribution-domain"
+  type  = "String"
+  value = aws_cloudfront_distribution.default.domain_name
+  tags  = var.default_tags
 }
-output "cloudfront_arn" {
-  description = "Cloudfront origin ARN"
-  value       = aws_cloudfront_distribution.default.arn
+
+resource "aws_ssm_parameter" "distribution_arn" {
+  name  = "/website/distribution-arn"
+  type  = "String"
+  value = aws_cloudfront_distribution.default.arn
+  tags  = var.default_tags
 }
