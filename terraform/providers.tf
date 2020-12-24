@@ -1,21 +1,11 @@
 terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
-    organization = "MediaCodex"
-
-    workspaces {
-      prefix = "website-"
-    }
-  }
-}
-
-data "terraform_remote_state" "core" {
-  backend   = "remote"
-  config = {
-    organization = "MediaCodex"
-    workspaces = {
-      name = "service-core-${local.environment}"
-    }
+  backend "s3" {
+    bucket         = "mediacodex-dev-terraform-state"
+    key            = "website.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "dev-terraform-lock"
+    workspace_key_prefix = "state"
   }
 }
 
@@ -36,7 +26,7 @@ variable "deploy_aws_accounts" {
 }
 
 provider "aws" {
-  region              = "eu-central-1"
+  region              = "us-east-1"
   allowed_account_ids = var.deploy_aws_accounts[local.environment]
   assume_role {
     role_arn = var.deploy_aws_roles[local.environment]
