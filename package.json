@@ -27,7 +27,7 @@
     "@nuxtjs/firebase": "^6.1.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/vuetify": "^1.11.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "change-case": "^4.1.1",
     "cookie-universal-nuxt": "^2.1.4",
     "firebase": "^7.16.1",
