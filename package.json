@@ -43,7 +43,7 @@
     "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/stylelint-module": "^3.1.0",
     "@vue/test-utils": "^1.0.3",
-    "aws-sdk": "^2.718.0",
+    "aws-sdk": "^2.1415.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
     "eslint": "^6.1.0",
