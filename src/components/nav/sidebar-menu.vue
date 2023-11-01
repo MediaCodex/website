@@ -1,6 +1,5 @@
 <template>
-  <ul class="menu p-4 w-80 min-h-full bg-primary">
-    <nav-header class="w-full mb-8" />
+  <ul class="menu px-4">
     <!-- Sidebar content here -->
     <nav-sidebar-item to="/" name="Home"><HomeIcon #icon /></nav-sidebar-item>
   </ul>
